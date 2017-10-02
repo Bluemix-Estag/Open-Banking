@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var request = require('request');
 var app = express();
 var fs = require('fs');
 
@@ -90,9 +91,11 @@ app.post('/login', function (req, res) {
                 var users = doc.users;
                 console.log(user);
                 if (users[user[0].id]["password"] == data.password) {
-
-                    res.status(200).json(users[user[0].id])
-
+                    // Get user accounts Balance
+                    getAccoutnsBalance(users[user[0].id],0, [], function(accounts){
+                        users[user[0].id].accounts = accounts;
+                        res.status(200).json(users[user[0].id])
+                    })
                 } else {
                     console.log("Wrong password")
                     res.status(403).json({ error: true, error_reason: "WRONG_PASSWORD" })
@@ -108,10 +111,36 @@ app.post('/login', function (req, res) {
 })
 
 
+function  getAccoutnsBalance(user,  index ,accounts, callback ){
+
+    if ( index >= user.accounts.length){
+        callback(accounts)
+    }else{
+        var options = {
+            uri: "http://demos-node-red.mybluemix.net/getBalance",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: user.accounts[index]
+        }
+        request(options, function(error, response, body){
+            if(!error && response.statusCode == 200){
+                user.accounts[index].accountBalance = body
+                accounts.push(user.accounts[index])
+                getAccoutnsBalance(user, index + 1, accounts, callback)
+            }else{
+                getAccoutnsBalance(user, index + 1, accounts, callback)
+            }
+        })
+    }
+}
+
 app.post('/createAccount', function (req, res) {
     console.log('Create account method invoked.. ');
     var data = req.body;
 
+    console.log(JSON.stringify(data,null,2));
 
     db.get('users', {
         revs_info: true
