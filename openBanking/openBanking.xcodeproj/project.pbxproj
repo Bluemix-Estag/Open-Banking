@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D0D7A7B1F82B30900BD6F2C /* OptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D7A7A1F82B30900BD6F2C /* OptionCell.swift */; };
+		8D2804AB1F8290C300BB47BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D2804AA1F8290C300BB47BF /* Assets.xcassets */; };
 		8D9701251F8141F60011EADF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9701241F8141F60011EADF /* MainViewController.swift */; };
 		8D9701271F81484C0011EADF /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9701261F81484C0011EADF /* Indicator.swift */; };
 		8D9701291F81562C0011EADF /* REST.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9701281F81562C0011EADF /* REST.swift */; };
+		8D9C904A1F82A4510088E2E2 /* BankAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9C90491F82A4510088E2E2 /* BankAccountCell.swift */; };
 		8DA9ED021F80968200204A82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA9ED011F80968200204A82 /* AppDelegate.swift */; };
 		8DA9ED041F80968200204A82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA9ED031F80968200204A82 /* ViewController.swift */; };
 		8DA9ED071F80968200204A82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DA9ED051F80968200204A82 /* Main.storyboard */; };
-		8DA9ED091F80968200204A82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DA9ED081F80968200204A82 /* Assets.xcassets */; };
 		8DA9ED0C1F80968200204A82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DA9ED0A1F80968200204A82 /* LaunchScreen.storyboard */; };
 		8DAD2C951F80A01900A5C488 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD2C941F80A01900A5C488 /* LoginViewController.swift */; };
 		8DAD2C971F80A04200A5C488 /* CadastrarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD2C961F80A04200A5C488 /* CadastrarViewController.swift */; };
@@ -24,14 +26,16 @@
 
 /* Begin PBXFileReference section */
 		2EF7B4AE3E2CB4820DB0F11A /* Pods_openBanking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_openBanking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D0D7A7A1F82B30900BD6F2C /* OptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionCell.swift; sourceTree = "<group>"; };
+		8D2804AA1F8290C300BB47BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D9701241F8141F60011EADF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8D9701261F81484C0011EADF /* Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
 		8D9701281F81562C0011EADF /* REST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REST.swift; sourceTree = "<group>"; };
+		8D9C90491F82A4510088E2E2 /* BankAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountCell.swift; sourceTree = "<group>"; };
 		8DA9ECFE1F80968200204A82 /* openBanking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = openBanking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DA9ED011F80968200204A82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8DA9ED031F80968200204A82 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		8DA9ED061F80968200204A82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8DA9ED081F80968200204A82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DA9ED0B1F80968200204A82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8DA9ED0D1F80968200204A82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DAD2C941F80A01900A5C488 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -95,8 +99,8 @@
 				8DAD2C981F80A23F00A5C488 /* Models */,
 				8DAD2C931F809FE600A5C488 /* ViewControllers */,
 				8DA9ED011F80968200204A82 /* AppDelegate.swift */,
+				8D2804AA1F8290C300BB47BF /* Assets.xcassets */,
 				8DA9ED051F80968200204A82 /* Main.storyboard */,
-				8DA9ED081F80968200204A82 /* Assets.xcassets */,
 				8DA9ED0A1F80968200204A82 /* LaunchScreen.storyboard */,
 				8DA9ED0D1F80968200204A82 /* Info.plist */,
 			);
@@ -121,6 +125,8 @@
 				8DAD2C9B1F80AE7100A5C488 /* User.swift */,
 				8D9701261F81484C0011EADF /* Indicator.swift */,
 				8D9701281F81562C0011EADF /* REST.swift */,
+				8D9C90491F82A4510088E2E2 /* BankAccountCell.swift */,
+				8D0D7A7A1F82B30900BD6F2C /* OptionCell.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -188,7 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DA9ED0C1F80968200204A82 /* LaunchScreen.storyboard in Resources */,
-				8DA9ED091F80968200204A82 /* Assets.xcassets in Resources */,
+				8D2804AB1F8290C300BB47BF /* Assets.xcassets in Resources */,
 				8DA9ED071F80968200204A82 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,10 +242,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-openBanking/Pods-openBanking-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -260,9 +268,11 @@
 				8DAD2C9C1F80AE7100A5C488 /* User.swift in Sources */,
 				8D9701291F81562C0011EADF /* REST.swift in Sources */,
 				8DA9ED041F80968200204A82 /* ViewController.swift in Sources */,
+				8D0D7A7B1F82B30900BD6F2C /* OptionCell.swift in Sources */,
 				8DAD2C9A1F80A25000A5C488 /* Alert.swift in Sources */,
 				8DA9ED021F80968200204A82 /* AppDelegate.swift in Sources */,
 				8D9701271F81484C0011EADF /* Indicator.swift in Sources */,
+				8D9C904A1F82A4510088E2E2 /* BankAccountCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

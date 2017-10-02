@@ -39,11 +39,26 @@ class LoginViewController: UIViewController {
                         REST.POST(url: LOGGIN_URL, body: JSON(userDic), completion: { (data) in
                             
                             if data["error"].boolValue {
-                                // Error
+                                
+                                var errorMessage = ""
+                                var title = ""
+                                switch data["error_reason"].string! {
+                                    case "EMAIL_NOT_FOUND" :
+                                        title = "Email inválido"
+                                        errorMessage = "Email não encontrado."
+                                        break
+                                    case "WRONG_PASSWORD":
+                                        title = "Senha inválida"
+                                        errorMessage = "Senha incorreta, tente novamente"
+                                        break
+                                    default:
+                                        title = "Erro"
+                                        errorMessage = "Um erro ocorreu, tente novamente!"
+                                }
+                                
                                  DispatchQueue.main.async {
                                     self.indicator.hideActivityIndicator(uiView: self.view)
-                                    print("Error")
-                                    self.present(Alert(title: "Error", message: data["error_reason"].string!).getAlert(), animated: true, completion: nil)
+                                    self.present(Alert(title: title , message: errorMessage).getAlert(), animated: true, completion: nil)
                                 }
                             }else{
                                 

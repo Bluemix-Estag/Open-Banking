@@ -36,7 +36,7 @@ class CadastrarViewController: UIViewController {
                                     present(Alert(title: "Senhas inválidas", message: "Favor confirme a sua senha").getAlert(), animated: true, completion: nil)
                                 }else{
                                     self.indicator.showActivityIndicator(uiView: self.view)
-                                    LOGGED_USER = User(email: email, name: name, password: password)
+                                    LOGGED_USER = User(email: email, name: name, password: password, accounts: [])
                                     // Register the user
                                     var request = URLRequest(url: URL(string: CREATE_ACCOUNT_URL)!)
                                     request.httpMethod = "POST"
