@@ -11,7 +11,7 @@ import SwiftyJSON
 
 
 class LoginViewController: UIViewController {
-    let LOGGIN_URL = "https://openbanking.localtunnel.me/login"
+    let LOGGIN_URL = "https://openbanking.mybluemix.net/login"
     let indicator = Indicator()
     
     
@@ -64,6 +64,7 @@ class LoginViewController: UIViewController {
                                 
                                 UserDefaults.standard.set( data.dictionaryObject , forKey: "LOGGED_USER")
                                 UserDefaults.standard.synchronize()
+                                
                                 DispatchQueue.main.async {
                                     self.indicator.hideActivityIndicator(uiView: self.view)
                                     self.performSegue(withIdentifier: "loginToMainSegue", sender: nil)

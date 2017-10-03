@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		8D0D7A7B1F82B30900BD6F2C /* OptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D7A7A1F82B30900BD6F2C /* OptionCell.swift */; };
 		8D2804AB1F8290C300BB47BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D2804AA1F8290C300BB47BF /* Assets.xcassets */; };
+		8D7CA3DB1F83CDB700C5F3B7 /* ChatHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CA3DA1F83CDB700C5F3B7 /* ChatHandler.swift */; };
+		8D7CA3DD1F83E0D800C5F3B7 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CA3DC1F83E0D800C5F3B7 /* ChatViewController.swift */; };
+		8D94CEEF1F82FAC0009A53DE /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94CEEE1F82FAC0009A53DE /* CreateAccountViewController.swift */; };
+		8D94CEF11F82FC70009A53DE /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94CEF01F82FC70009A53DE /* AccountDetailsViewController.swift */; };
 		8D9701251F8141F60011EADF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9701241F8141F60011EADF /* MainViewController.swift */; };
 		8D9701271F81484C0011EADF /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9701261F81484C0011EADF /* Indicator.swift */; };
 		8D9701291F81562C0011EADF /* REST.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9701281F81562C0011EADF /* REST.swift */; };
@@ -28,6 +32,10 @@
 		2EF7B4AE3E2CB4820DB0F11A /* Pods_openBanking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_openBanking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0D7A7A1F82B30900BD6F2C /* OptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionCell.swift; sourceTree = "<group>"; };
 		8D2804AA1F8290C300BB47BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8D7CA3DA1F83CDB700C5F3B7 /* ChatHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHandler.swift; sourceTree = "<group>"; };
+		8D7CA3DC1F83E0D800C5F3B7 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		8D94CEEE1F82FAC0009A53DE /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		8D94CEF01F82FC70009A53DE /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
 		8D9701241F8141F60011EADF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8D9701261F81484C0011EADF /* Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
 		8D9701281F81562C0011EADF /* REST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REST.swift; sourceTree = "<group>"; };
@@ -114,6 +122,9 @@
 				8DAD2C941F80A01900A5C488 /* LoginViewController.swift */,
 				8DAD2C961F80A04200A5C488 /* CadastrarViewController.swift */,
 				8D9701241F8141F60011EADF /* MainViewController.swift */,
+				8D94CEEE1F82FAC0009A53DE /* CreateAccountViewController.swift */,
+				8D94CEF01F82FC70009A53DE /* AccountDetailsViewController.swift */,
+				8D7CA3DC1F83E0D800C5F3B7 /* ChatViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -127,6 +138,7 @@
 				8D9701281F81562C0011EADF /* REST.swift */,
 				8D9C90491F82A4510088E2E2 /* BankAccountCell.swift */,
 				8D0D7A7A1F82B30900BD6F2C /* OptionCell.swift */,
+				8D7CA3DA1F83CDB700C5F3B7 /* ChatHandler.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -262,16 +274,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D94CEEF1F82FAC0009A53DE /* CreateAccountViewController.swift in Sources */,
 				8D9701251F8141F60011EADF /* MainViewController.swift in Sources */,
+				8D7CA3DB1F83CDB700C5F3B7 /* ChatHandler.swift in Sources */,
 				8DAD2C971F80A04200A5C488 /* CadastrarViewController.swift in Sources */,
 				8DAD2C951F80A01900A5C488 /* LoginViewController.swift in Sources */,
 				8DAD2C9C1F80AE7100A5C488 /* User.swift in Sources */,
 				8D9701291F81562C0011EADF /* REST.swift in Sources */,
 				8DA9ED041F80968200204A82 /* ViewController.swift in Sources */,
 				8D0D7A7B1F82B30900BD6F2C /* OptionCell.swift in Sources */,
+				8D94CEF11F82FC70009A53DE /* AccountDetailsViewController.swift in Sources */,
 				8DAD2C9A1F80A25000A5C488 /* Alert.swift in Sources */,
 				8DA9ED021F80968200204A82 /* AppDelegate.swift in Sources */,
 				8D9701271F81484C0011EADF /* Indicator.swift in Sources */,
+				8D7CA3DD1F83E0D800C5F3B7 /* ChatViewController.swift in Sources */,
 				8D9C904A1F82A4510088E2E2 /* BankAccountCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

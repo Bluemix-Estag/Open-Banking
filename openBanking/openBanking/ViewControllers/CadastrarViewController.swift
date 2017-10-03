@@ -10,7 +10,7 @@ import UIKit
 
 class CadastrarViewController: UIViewController {
     
-    let CREATE_ACCOUNT_URL = "https://openbanking.localtunnel.me/createAccount"
+    let CREATE_ACCOUNT_URL = "https://openbanking.mybluemix.net/createAccount"
     var LOGGED_USER: User = User()
     
     let indicator = Indicator()

@@ -15,7 +15,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tableView: UITableView!
     
-    let sections = ["Accounts"," "]
+    let sections = ["Contas"," "]
     
     let LOGGED_USER: User = User()
     
@@ -23,6 +23,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        ChatHandler.shared().sendMessage(text: "Oi")
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -33,6 +35,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
             }
         }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -62,7 +65,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
-            return CGFloat(integerLiteral: 20)
+            return CGFloat(integerLiteral: 40)
         }else{
             return CGFloat(integerLiteral: 40)
         }
@@ -70,7 +73,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
-            return CGFloat(integerLiteral: 100)
+            return CGFloat(integerLiteral: 70)
         }else{
             return UITableViewAutomaticDimension
         }
@@ -85,7 +88,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 nf.locale = Locale(identifier: "pt_BR")
                 cell.bankIcon.image = #imageLiteral(resourceName: "safebox")
                 cell.accountName.text = LOGGED_USER.accounts[indexPath.row]["accountName"] as! String
-                cell.accountBalance.text = "R$ "+nf.string(from: 1023.23)!
+                var balanceNumber = LOGGED_USER.accounts[indexPath.row]["accountBalance"]
+                cell.accountBalance.text = "R$ "+nf.string(from: balanceNumber as! NSNumber)!
             }else{
                 cell.accountName.text = "Nenhuma conta cadastrada"
             }
@@ -97,6 +101,25 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             return cell
         }
         
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        if indexPath.section == 0 {
+            performSegue(withIdentifier: "bankAccountDetailSegue", sender: indexPath.row)
+        }
+        
+        
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "bankAccountDetailSegue" {
+            let destinationVC = segue.destination as! AccountDetailsViewController
+            destinationVC.accountIndex = sender as! Int
+            
+            
+        }
     }
     
     
