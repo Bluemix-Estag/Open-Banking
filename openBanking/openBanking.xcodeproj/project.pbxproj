@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8D0D7A7B1F82B30900BD6F2C /* OptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D7A7A1F82B30900BD6F2C /* OptionCell.swift */; };
 		8D2804AB1F8290C300BB47BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D2804AA1F8290C300BB47BF /* Assets.xcassets */; };
+		8D2B2EFF1F8485FB000B1E59 /* ChatTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2B2EFE1F8485FB000B1E59 /* ChatTableView.swift */; };
+		8D2B2F011F8489FA000B1E59 /* WatsonChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2B2F001F8489FA000B1E59 /* WatsonChatCell.swift */; };
 		8D7CA3DB1F83CDB700C5F3B7 /* ChatHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CA3DA1F83CDB700C5F3B7 /* ChatHandler.swift */; };
 		8D7CA3DD1F83E0D800C5F3B7 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CA3DC1F83E0D800C5F3B7 /* ChatViewController.swift */; };
 		8D94CEEF1F82FAC0009A53DE /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94CEEE1F82FAC0009A53DE /* CreateAccountViewController.swift */; };
@@ -32,6 +34,8 @@
 		2EF7B4AE3E2CB4820DB0F11A /* Pods_openBanking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_openBanking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0D7A7A1F82B30900BD6F2C /* OptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionCell.swift; sourceTree = "<group>"; };
 		8D2804AA1F8290C300BB47BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8D2B2EFE1F8485FB000B1E59 /* ChatTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableView.swift; sourceTree = "<group>"; };
+		8D2B2F001F8489FA000B1E59 /* WatsonChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatsonChatCell.swift; sourceTree = "<group>"; };
 		8D7CA3DA1F83CDB700C5F3B7 /* ChatHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHandler.swift; sourceTree = "<group>"; };
 		8D7CA3DC1F83E0D800C5F3B7 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		8D94CEEE1F82FAC0009A53DE /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +129,7 @@
 				8D94CEEE1F82FAC0009A53DE /* CreateAccountViewController.swift */,
 				8D94CEF01F82FC70009A53DE /* AccountDetailsViewController.swift */,
 				8D7CA3DC1F83E0D800C5F3B7 /* ChatViewController.swift */,
+				8D2B2EFE1F8485FB000B1E59 /* ChatTableView.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -139,6 +144,7 @@
 				8D9C90491F82A4510088E2E2 /* BankAccountCell.swift */,
 				8D0D7A7A1F82B30900BD6F2C /* OptionCell.swift */,
 				8D7CA3DA1F83CDB700C5F3B7 /* ChatHandler.swift */,
+				8D2B2F001F8489FA000B1E59 /* WatsonChatCell.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -275,6 +281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D94CEEF1F82FAC0009A53DE /* CreateAccountViewController.swift in Sources */,
+				8D2B2EFF1F8485FB000B1E59 /* ChatTableView.swift in Sources */,
 				8D9701251F8141F60011EADF /* MainViewController.swift in Sources */,
 				8D7CA3DB1F83CDB700C5F3B7 /* ChatHandler.swift in Sources */,
 				8DAD2C971F80A04200A5C488 /* CadastrarViewController.swift in Sources */,
@@ -288,6 +295,7 @@
 				8DA9ED021F80968200204A82 /* AppDelegate.swift in Sources */,
 				8D9701271F81484C0011EADF /* Indicator.swift in Sources */,
 				8D7CA3DD1F83E0D800C5F3B7 /* ChatViewController.swift in Sources */,
+				8D2B2F011F8489FA000B1E59 /* WatsonChatCell.swift in Sources */,
 				8D9C904A1F82A4510088E2E2 /* BankAccountCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
