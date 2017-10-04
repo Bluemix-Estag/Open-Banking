@@ -99,6 +99,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         cell.labelText.text =  messages[indexPath.row]
         print(cell.labelText.frame.size.width)
+        print("modificacao")
         print(cell.frame.size.width)
         
         
