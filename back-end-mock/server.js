@@ -84,6 +84,7 @@ app.post('/login', function (req, res) {
             if (err) {
                 //Error
                 console.log('Um erro ocorreu')
+                res.status(500).json({ error: true, error_reason: "INTERNAL_SERVER_ERROR" })
             } else {
                 console.log("checking user")
                 var registeredUsers = doc.registeredUsers;
