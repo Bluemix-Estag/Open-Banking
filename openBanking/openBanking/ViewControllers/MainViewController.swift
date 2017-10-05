@@ -16,17 +16,46 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var homeTabBarItem: UITabBarItem!
     
     let sections = ["Contas"," "]
     
     let LOGGED_USER: User = User()
+    var refreshControl : UIRefreshControl!
     
+    
+    @objc func activityMethod() {
+        
+        print("refresh control method invoked...")
+        self.refreshControl.endRefreshing()
+    }
+    
+    @IBAction func logout(_ sender: Any) {
+        UserDefaults.standard.removeObject(forKey: "LOGGED_USER")
+        self.dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.addTarget(self, action: #selector(activityMethod), for: UIControlEvents.valueChanged)
+        self.tableView.refreshControl = refreshControl
         
-        ChatHandler.shared().sendMessage(text: "Oi")
+        if let chatVC = self.tabBarController?.viewControllers![1] as? ChatViewController {
+              chatVC.chatBarTab.badgeValue = "1"
+        }
+        
+        ChatHandler.shared().sendMessage(text: "Oi", completion: ({ (result, error) in
+            if !error {
+                DispatchQueue.main.async(execute: {
+                UserDefaults.standard.setValue(result["output"]["text"][0].string! , forKey: "pendingMesssage")
+//              let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+//              let fvc = storyboard.instantiateViewController(withIdentifier: "ChatStoryBoard") as! ChatViewController
+//              fvc.watsonReceivedMessage(text: result["output"]["text"][0].string!)
+                })
+            }
+        }))
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -71,8 +100,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }else{
             return CGFloat(integerLiteral: 40)
         }
+        
+        
+        
     }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             return CGFloat(integerLiteral: 70)

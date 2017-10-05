@@ -16,7 +16,6 @@ class REST  {
     
 
     static func POST(url: String, body: JSON, completion: @escaping (JSON) -> Void){
-    
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")

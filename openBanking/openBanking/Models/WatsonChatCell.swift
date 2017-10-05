@@ -13,10 +13,15 @@ class WatsonChatCell: UITableViewCell {
     
     @IBOutlet weak var labelText: UILabel!
     
+    @IBOutlet weak var labelViewHolder: UIView!
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        labelText.layer.cornerRadius = 10
+//        labelText.layer.cornerRadius = 10
+        labelViewHolder.layer.cornerRadius = 10
     }
+    
+    
 }
 

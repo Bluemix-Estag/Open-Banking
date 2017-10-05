@@ -25,7 +25,7 @@ class ChatHandler {
     private init() {
      
     }
-    func sendMessage(text: String) {
+    func sendMessage(text: String, completion: @escaping (JSON, Bool) -> ()) {
         print("Send message method invoked..")
         var request = URLRequest(url: URL(string: self.CONVERSATION_URL)!)
         request.httpMethod = "POST"
@@ -34,7 +34,14 @@ class ChatHandler {
         request.httpBody = output
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            print(JSON(data))
+            if error == nil {
+                    completion(JSON(data), false)
+            }else{
+                print(error?.localizedDescription)
+                completion(JSON.null, true)
+            }
+            
+            
         }
         task.resume()
     }

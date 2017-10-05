@@ -36,6 +36,13 @@ class LoginViewController: UIViewController {
                         
                         self.indicator.showActivityIndicator(uiView: self.view)
                         
+                        RestHandler.shared().POST(url: "test", data: JSON.null, completion: { (data, error) in
+                            
+                            print("test")
+                        })
+                        
+                        
+                        
                         REST.POST(url: LOGGIN_URL, body: JSON(userDic), completion: { (data) in
                             
                             if data["error"].boolValue {
