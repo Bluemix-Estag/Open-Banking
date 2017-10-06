@@ -21,9 +21,7 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func login(_ sender: Any) {
-    
         if let email = emailField.text {
-
             if email == ""{
                 // Error
                 present(Alert(title: "Email inválido", message: "Favor informe seu email").getAlert(), animated: true, completion: nil)
@@ -33,23 +31,20 @@ class LoginViewController: UIViewController {
                         present(Alert(title: "Senha inválido", message: "Favor informe sua senha").getAlert(), animated: true, completion: nil)
                     }else{
                         let userDic = ["email": email, "password": password]
-                        
                         self.indicator.showActivityIndicator(uiView: self.view)
-                        
-                        RestHandler.shared().POST(url: "test", data: JSON.null, completion: { (data, error) in
-                            
-                            print("test")
-                        })
-                        
-                        
-                        
-                        REST.POST(url: LOGGIN_URL, body: JSON(userDic), completion: { (data) in
-                            
-                            if data["error"].boolValue {
-                                
+                        RestHandler.shared().POST(url: self.LOGGIN_URL, data: JSON(userDic), completion: { (data, error) in
+                            if !error {
+                                UserDefaults.standard.set( data.dictionaryObject , forKey: "LOGGED_USER")
+                                UserDefaults.standard.synchronize()
+                                DispatchQueue.main.async {
+                                    self.indicator.hideActivityIndicator(uiView: self.view)
+                                    self.performSegue(withIdentifier: "loginToMainSegue", sender: nil)
+                                }
+                            }else{
                                 var errorMessage = ""
                                 var title = ""
-                                switch data["error_reason"].string! {
+                                if data != nil {
+                                    switch data["error_reason"].string! {
                                     case "EMAIL_NOT_FOUND" :
                                         title = "Email inválido"
                                         errorMessage = "Email não encontrado."
@@ -61,20 +56,16 @@ class LoginViewController: UIViewController {
                                     default:
                                         title = "Erro"
                                         errorMessage = "Um erro ocorreu, tente novamente!"
+                                    }
+                                }else{
+                                    title = "Erro"
+                                    errorMessage = "Um erro ocorreu, tente novamente!"
                                 }
-                                
-                                 DispatchQueue.main.async {
-                                    self.indicator.hideActivityIndicator(uiView: self.view)
-                                    self.present(Alert(title: title , message: errorMessage).getAlert(), animated: true, completion: nil)
-                                }
-                            }else{
-                                
-                                UserDefaults.standard.set( data.dictionaryObject , forKey: "LOGGED_USER")
-                                UserDefaults.standard.synchronize()
-                                
+                               
                                 DispatchQueue.main.async {
                                     self.indicator.hideActivityIndicator(uiView: self.view)
-                                    self.performSegue(withIdentifier: "loginToMainSegue", sender: nil)
+                                    self.present(Alert(title: title , message: errorMessage).getAlert(), animated: true, completion: nil)
+                                    UserDefaults.standard.removeObject(forKey: "LOGGED_USER")
                                 }
                             }
                         })

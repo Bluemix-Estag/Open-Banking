@@ -15,10 +15,13 @@ class UserChatCell: UITableViewCell {
     @IBOutlet weak var userBubbleHolder: UIView!
     @IBOutlet weak var userTextLabel: UILabel!
     
+    @IBOutlet weak var leftChat: UIImageView!
     
     override func layoutSubviews() {
         super.layoutSubviews()
         userBubbleHolder.layer.cornerRadius = 10
+        
+        leftChat.tintColor = userBubbleHolder.backgroundColor
     }
 
 }

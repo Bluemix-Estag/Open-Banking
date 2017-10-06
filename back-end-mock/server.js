@@ -74,6 +74,51 @@ function creatUsers() {
     })
 }
 
+app.post("/updateInfo",function(req,res){
+    console.log("Update method invoked..");
+    var data = req.body
+    
+    if(data != null && data.email != null && data.password != null ){
+
+
+        db.get('users', {revs_info : true},function(err,doc){
+            if(err){
+                res.status(500).json({error: true, error_reason : "INTERNAL_SERVER_ERROR"})
+            }else{
+
+                var registeredUsers = doc.registeredUsers
+                var user = registeredUsers.filter(function(user){  return user.email == data.email.toLowerCase()  })
+                if(user.length == 1){
+
+
+                    var users = doc.users;
+                    console.log(user);
+                    if (users[user[0].id]["password"] == data.password) {
+                        // Get user accounts Balance
+                        console.log(" Checking user accounts");
+                        getAccoutnsBalance(users[user[0].id], 0, [], function (accounts) {
+                            users[user[0].id].accounts = accounts;
+                            res.status(200).json(users[user[0].id])
+                        })
+                    } else {
+                        console.log("Wrong password")
+                        res.status(403).json({ error: true, error_reason: "WRONG_PASSWORD" })
+
+                    }
+
+
+                }else{
+                    res.status(404).json({ error: true, error_reason: "EMAIL_NOT_FOUND" })
+                }
+
+            }
+        })
+
+    }else{
+        res.status(400).json({error: true, error_reason : "BAD_REQUEST"})
+    }
+    
+})
 
 app.post('/login', function (req, res) {
     console.log('Login method invoked..')

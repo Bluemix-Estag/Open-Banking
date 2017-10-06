@@ -21,7 +21,7 @@ the response possibilities
 
 | status code | response body |
 | --- | --- |
-| 200 |  { "error": false, "email" : "<EMAIL>" , "name" : "<NAME>" ,  "password" :"<PASSWORD"> , "accounts": [ {"accountName": "<ACCOUNT_NAME>", "accountBalance": xxxx}] } |
+| 200 |  {  "email" : "<EMAIL>" , "name" : "<NAME>" ,  "password" :"<PASSWORD"> , "accounts": [ {"accountName": "<ACCOUNT_NAME>", "accountBalance": xxxx}] } |
 | 400 |  { "error" : true , "error_reason" : "BAD_REQUEST" } | 
 | 403 |  { "error" : true, "error_reason": "WRONG_PASSWORD"} | 
 | 404 |  { "error" : true , "error_reason": "EMAIL_NOT_FOUND"} | 

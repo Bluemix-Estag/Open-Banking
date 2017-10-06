@@ -44,7 +44,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                     }else{
                         DispatchQueue.main.async(execute: {
                             self.messages.append(["watson": "Um erro ocorreu, tente novamente."])
-                                self.customReloadTable()
+                            self.customReloadTable()
                         })
                     }
                 })
@@ -54,19 +54,23 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func customReloadTable(){
         self.tableView.reloadData()
-        
-        let lastRowIndex = self.tableView!.numberOfRows(inSection: 0) - 1
-        let pathToLastRow = NSIndexPath(row: lastRowIndex, section: 0)
-        self.tableView?.scrollToRow(at: pathToLastRow as IndexPath, at: UITableViewScrollPosition.top, animated: true)
+        if messages.count > 0 {
+            let lastRowIndex = self.tableView!.numberOfRows(inSection: 0) - 1
+            let pathToLastRow = NSIndexPath(row: lastRowIndex, section: 0)
+            self.tableView?.scrollToRow(at: pathToLastRow as IndexPath, at: UITableViewScrollPosition.top, animated: true)
+            
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.delegate = self
         self.tableView.dataSource = self
-        if let pendingMessage = UserDefaults.standard.value(forKey: "pendingMesssage") {
-            messages.append(["watson": pendingMessage as! String])
-            UserDefaults.standard.removeObject(forKey: "pendingMesssage")
+        if let pendingMessages = UserDefaults.standard.value(forKey: "pendingMesssages") as? Array<String> {
+            for var msg in pendingMessages {
+                self.messages.append(["watson": msg])
+            }
+            UserDefaults.standard.removeObject(forKey: "pendingMesssages")
             self.chatBarTab.badgeValue = nil
         }
         
@@ -104,8 +108,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
             var height =  -Float(keyboardHeight) + Float(tabBarHeight)
             self.optionsBottomConstraint.constant =  CGFloat(height)
+            
             UIView.animate(withDuration: 1000, animations: {
                 self.view.layoutIfNeeded()
+                self.customReloadTable()
             })
         }
     }
@@ -122,14 +128,29 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if messages.count > 0{
             var message = messages[indexPath.row]
+//            var currentIndex = indexPath.row - 1
+//            let key = Array(message.keys)[0]
+//            if currentIndex > 0 {
+//                while  Array(messages[currentIndex].keys)[0] == key {
+//                    if key == "watson" {
+//                        if let celula = self.tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as? WatsonChatCell {
+//                            celula.rightChat.image = nil
+//                        }
+//                    }else{
+//                        if let celula = self.tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0 )) as? UserChatCell{
+//                            celula.leftChat.image = nil
+//                        }
+//                    }
+//                    currentIndex = currentIndex - 1
+//                }
+//            }
+            
             if Array(message.keys)[0] == "watson" {
                 var cell = tableView.dequeueReusableCell(withIdentifier: "chatBubbleCell", for: indexPath) as! WatsonChatCell
                 cell.labelText.text =  messages[indexPath.row]["watson"]
@@ -139,16 +160,12 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.userTextLabel.text =  messages[indexPath.row]["user"]
                 return cell
             }
+            
+            
+            
         }else{
             return UITableViewCell()
         }
         
     }
-    
-    func watsonReceivedMessage(text: String){
-        self.messages.append(["watson": text])
-        print(messages)
-    }
-    
-    
 }

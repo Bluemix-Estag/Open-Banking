@@ -17,7 +17,6 @@
 		8D94CEF11F82FC70009A53DE /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94CEF01F82FC70009A53DE /* AccountDetailsViewController.swift */; };
 		8D9701251F8141F60011EADF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9701241F8141F60011EADF /* MainViewController.swift */; };
 		8D9701271F81484C0011EADF /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9701261F81484C0011EADF /* Indicator.swift */; };
-		8D9701291F81562C0011EADF /* REST.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9701281F81562C0011EADF /* REST.swift */; };
 		8D9C904A1F82A4510088E2E2 /* BankAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9C90491F82A4510088E2E2 /* BankAccountCell.swift */; };
 		8DA9ED021F80968200204A82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA9ED011F80968200204A82 /* AppDelegate.swift */; };
 		8DA9ED041F80968200204A82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA9ED031F80968200204A82 /* ViewController.swift */; };
@@ -44,7 +43,6 @@
 		8D94CEF01F82FC70009A53DE /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
 		8D9701241F8141F60011EADF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8D9701261F81484C0011EADF /* Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
-		8D9701281F81562C0011EADF /* REST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REST.swift; sourceTree = "<group>"; };
 		8D9C90491F82A4510088E2E2 /* BankAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountCell.swift; sourceTree = "<group>"; };
 		8DA9ECFE1F80968200204A82 /* openBanking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = openBanking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DA9ED011F80968200204A82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -144,7 +142,6 @@
 				8DAD2C991F80A25000A5C488 /* Alert.swift */,
 				8DAD2C9B1F80AE7100A5C488 /* User.swift */,
 				8D9701261F81484C0011EADF /* Indicator.swift */,
-				8D9701281F81562C0011EADF /* REST.swift */,
 				8D9C90491F82A4510088E2E2 /* BankAccountCell.swift */,
 				8D0D7A7A1F82B30900BD6F2C /* OptionCell.swift */,
 				8D7CA3DA1F83CDB700C5F3B7 /* ChatHandler.swift */,
@@ -294,7 +291,6 @@
 				8DAD2C971F80A04200A5C488 /* CadastrarViewController.swift in Sources */,
 				8DAD2C951F80A01900A5C488 /* LoginViewController.swift in Sources */,
 				8DAD2C9C1F80AE7100A5C488 /* User.swift in Sources */,
-				8D9701291F81562C0011EADF /* REST.swift in Sources */,
 				8DA9ED041F80968200204A82 /* ViewController.swift in Sources */,
 				8D0D7A7B1F82B30900BD6F2C /* OptionCell.swift in Sources */,
 				8D94CEF11F82FC70009A53DE /* AccountDetailsViewController.swift in Sources */,

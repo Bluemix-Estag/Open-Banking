@@ -189,40 +189,51 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="chatBubbleCell" id="3ox-id-ftu" customClass="WatsonChatCell" customModule="openBanking" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3ox-id-ftu" id="YGB-ij-bAv">
+                                        <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3ox-id-ftu" id="YGB-ij-bAv">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="righ-chat" translatesAutoresizingMaskIntoConstraints="NO" id="lkS-ru-H02">
+                                                    <rect key="frame" x="8" y="26" width="40" height="10"/>
+                                                    <color key="tintColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="10" id="Duw-fJ-nxe"/>
+                                                        <constraint firstAttribute="width" constant="40" id="Lc1-VL-rlH"/>
+                                                    </constraints>
+                                                </imageView>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="feq-nU-sVn">
-                                                    <rect key="frame" x="8" y="8" width="58" height="28"/>
+                                                    <rect key="frame" x="25" y="8" width="70.5" height="28"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IDi-rL-yCE">
-                                                            <rect key="frame" x="8" y="2" width="42" height="24"/>
+                                                            <rect key="frame" x="16" y="4" width="46.5" height="20"/>
                                                             <color key="backgroundColor" red="0.67843137254901964" green="0.83921568627450982" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="19"/>
                                                             <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.67843137254901964" green="0.83921568627450982" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="IDi-rL-yCE" secondAttribute="bottom" constant="2" id="5ef-n8-sDh"/>
-                                                        <constraint firstItem="IDi-rL-yCE" firstAttribute="leading" secondItem="feq-nU-sVn" secondAttribute="leading" constant="8" id="LKj-5B-9xh"/>
-                                                        <constraint firstAttribute="trailing" secondItem="IDi-rL-yCE" secondAttribute="trailing" constant="8" id="XXb-vf-jR2"/>
-                                                        <constraint firstItem="IDi-rL-yCE" firstAttribute="top" secondItem="feq-nU-sVn" secondAttribute="top" constant="2" id="cPt-gy-gYG"/>
+                                                        <constraint firstAttribute="trailing" secondItem="IDi-rL-yCE" secondAttribute="trailing" constant="8" id="0NV-sq-aJk"/>
+                                                        <constraint firstAttribute="bottom" secondItem="IDi-rL-yCE" secondAttribute="bottom" constant="4" id="JIk-6c-l5G"/>
+                                                        <constraint firstItem="IDi-rL-yCE" firstAttribute="leading" secondItem="feq-nU-sVn" secondAttribute="leading" constant="16" id="ROA-9R-PSH"/>
+                                                        <constraint firstItem="IDi-rL-yCE" firstAttribute="top" secondItem="feq-nU-sVn" secondAttribute="top" constant="4" id="rBv-Fh-OQN"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="feq-nU-sVn" secondAttribute="trailing" constant="40" id="4dk-SM-vlz"/>
-                                                <constraint firstAttribute="bottom" secondItem="feq-nU-sVn" secondAttribute="bottom" constant="8" id="SqO-n5-Z9B"/>
-                                                <constraint firstItem="feq-nU-sVn" firstAttribute="top" secondItem="YGB-ij-bAv" secondAttribute="top" constant="8" id="cQX-pN-dJq"/>
-                                                <constraint firstItem="feq-nU-sVn" firstAttribute="leading" secondItem="YGB-ij-bAv" secondAttribute="leading" constant="8" id="mWK-tt-se1"/>
+                                                <constraint firstItem="lkS-ru-H02" firstAttribute="leading" secondItem="YGB-ij-bAv" secondAttribute="leadingMargin" id="4fo-Ej-8en"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="feq-nU-sVn" secondAttribute="trailing" constant="40" id="WuA-kv-akI"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="lkS-ru-H02" secondAttribute="bottom" id="XAm-DM-bIt"/>
+                                                <constraint firstItem="feq-nU-sVn" firstAttribute="top" secondItem="YGB-ij-bAv" secondAttribute="top" constant="8" id="cIV-FS-hQp"/>
+                                                <constraint firstItem="feq-nU-sVn" firstAttribute="leading" secondItem="YGB-ij-bAv" secondAttribute="leading" constant="25" id="l6d-Ft-E0O"/>
+                                                <constraint firstAttribute="bottom" secondItem="feq-nU-sVn" secondAttribute="bottom" constant="8" id="sls-CF-743"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="labelText" destination="IDi-rL-yCE" id="K9N-1P-UUD"/>
                                             <outlet property="labelViewHolder" destination="feq-nU-sVn" id="7i9-fN-oVi"/>
+                                            <outlet property="rightChat" destination="lkS-ru-H02" id="EsA-zr-ntC"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserBubbleIdentifier" id="F9O-Gi-4ar" customClass="UserChatCell" customModule="openBanking" customModuleProvider="target">
@@ -232,8 +243,16 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="left-chat" translatesAutoresizingMaskIntoConstraints="NO" id="DJP-C4-vr6">
+                                                    <rect key="frame" x="327" y="26" width="40" height="10"/>
+                                                    <color key="tintColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="10" id="2wq-jn-3mH"/>
+                                                        <constraint firstAttribute="width" constant="40" id="yvC-2x-KZe"/>
+                                                    </constraints>
+                                                </imageView>
                                                 <view opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uze-EW-pgR">
-                                                    <rect key="frame" x="309" y="8" width="58" height="28"/>
+                                                    <rect key="frame" x="292" y="8" width="58" height="28"/>
                                                     <subviews>
                                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbf-1o-BZL">
                                                             <rect key="frame" x="8" y="2" width="42" height="24"/>
@@ -252,13 +271,16 @@
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="uze-EW-pgR" secondAttribute="trailing" constant="8" id="8cJ-09-oby"/>
+                                                <constraint firstAttribute="trailing" secondItem="uze-EW-pgR" secondAttribute="trailing" constant="25" id="8cJ-09-oby"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="DJP-C4-vr6" secondAttribute="trailing" id="AoO-sz-tgt"/>
                                                 <constraint firstItem="uze-EW-pgR" firstAttribute="top" secondItem="tWe-Yj-EQy" secondAttribute="top" constant="8" id="GGT-Xv-E5N"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="DJP-C4-vr6" secondAttribute="bottom" id="Wu5-Fv-weH"/>
                                                 <constraint firstAttribute="bottom" secondItem="uze-EW-pgR" secondAttribute="bottom" constant="8" id="jOi-kv-2fM"/>
                                                 <constraint firstItem="uze-EW-pgR" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="tWe-Yj-EQy" secondAttribute="leading" constant="40" id="sck-Xl-RD2"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="leftChat" destination="DJP-C4-vr6" id="jHh-Cz-OC8"/>
                                             <outlet property="userBubbleHolder" destination="uze-EW-pgR" id="TMU-QG-0Jw"/>
                                             <outlet property="userTextLabel" destination="tbf-1o-BZL" id="LPM-qD-GGo"/>
                                         </connections>
@@ -382,7 +404,6 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="optionLabel" destination="VdD-rL-har" id="SrP-e2-afD"/>
-                                            <segue destination="cba-fb-fNq" kind="show" id="7o7-eN-R0t"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -404,7 +425,6 @@
                     <connections>
                         <outlet property="homeTabBarItem" destination="qtL-BN-fSe" id="Mzw-4c-aGe"/>
                         <outlet property="tableView" destination="31a-xt-IAT" id="ZbC-wv-YO8"/>
-                        <segue destination="qZ1-eL-QBY" kind="show" identifier="bankAccountDetailSegue" id="3K7-VE-VlD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6J-zc-2Bm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -601,6 +621,8 @@
     <resources>
         <image name="Chat" width="25" height="25"/>
         <image name="home" width="25" height="25"/>
+        <image name="left-chat" width="200" height="176"/>
+        <image name="righ-chat" width="200" height="176"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="sLG-ug-u9V"/>

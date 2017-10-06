@@ -26,29 +26,25 @@ class RestHandler {
     
     
     func POST(url: String, data: JSON, completion : @escaping ( JSON , Bool) -> Void ) -> () {
-        
         var request = URLRequest(url: URL(string: url)!)
         request.httpMethod = "POST"
         request.httpBody = try? data.rawData()
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let task = URLSession.shared.dataTask(with: request) { (data, urlResponse, error) in
-            
-            print("data \(data)")
-            print("response \(urlResponse)")
-            print("error \(error)")
-            if error == nil{
-                
+            if var statusCode = (urlResponse as? HTTPURLResponse)?.statusCode {
+                if error == nil && statusCode == 200 {
+                    completion(JSON(data), false)
+                }else{
+                    print(error?.localizedDescription)
+                    completion( data != nil ? JSON(data): JSON.null, true)
+                }
             }else{
+                print(error?.localizedDescription)
                 completion(JSON.null, true)
             }
-     
-            
+           
         }
-        
         task.resume()
     }
-    
-    
-    
     
 }
