@@ -99,4 +99,18 @@ function initCloudant() {
     }
 }
 
-module.exports = db
+
+const getUsers = (callback) => {
+    db.get('users', {revs_info: true}, (err,doc)=>{
+        console.log(err)
+        if (err) {
+            callback(true, null);
+        }else{
+            callback(false, doc)
+        }
+    })
+}
+
+module.exports = {
+    getUsers
+}

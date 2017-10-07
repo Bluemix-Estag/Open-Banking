@@ -3,15 +3,14 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
 var fs = require('fs');
-// var chatbot = require('./bot')
+
 app.use(bodyParser.json());
 
 var port = process.env.PORT || 3000;
 app.set('port', port);
 
-
-
 var db = require('./db.js');
+var chatbot = require('./bot')
 
 app.post("/updateInfo", function (req, res) {
     console.log("Update method invoked..");
@@ -59,15 +58,13 @@ app.post("/updateInfo", function (req, res) {
 
 })
 
-app.post('/login', function (req, res) {
-    console.log('Login method invoked..')
-    var data = req.body;
-
+app.post('/login', (req, res) => {
+    console.log('Login method invoked');
+    const data = req.body;
     if (data != null && data.email != null && data.password != null) {
-        db.get('users', { revs_info: true }, function (err, doc) {
+        db.getUsers((err, doc) => {
+
             if (err) {
-                //Error
-                console.log('Um erro ocorreu')
                 res.status(500).json({ error: true, error_reason: "INTERNAL_SERVER_ERROR" })
             } else {
                 console.log("checking user")
@@ -94,11 +91,53 @@ app.post('/login', function (req, res) {
                     res.status(404).json({ error: true, error_reason: "EMAIL_NOT_FOUND" })
                 }
             }
+
         })
     } else {
         res.status(400).json({ error: true, error_reason: "BAD_REQUEST" })
     }
 })
+
+// app.post('/login', function (req, res) {
+//     console.log('Login method invoked..')
+//     var data = req.body;
+
+//     if (data != null && data.email != null && data.password != null) {
+//         db.get('users', { revs_info: true }, function (err, doc) {
+//             if (err) {
+//                 //Error
+//                 console.log('Um erro ocorreu')
+//                 res.status(500).json({ error: true, error_reason: "INTERNAL_SERVER_ERROR" })
+//             } else {
+//                 console.log("checking user")
+//                 var registeredUsers = doc.registeredUsers;
+//                 var user = registeredUsers.filter(function (user) { return user.email == data.email.toLowerCase() })
+//                 if (user.length == 1) {
+//                     var users = doc.users;
+//                     console.log(user);
+//                     if (users[user[0].id]["password"] == data.password) {
+//                         // Get user accounts Balance
+//                         console.log(" Checking user accounts");
+//                         getAccoutnsBalance(users[user[0].id], 0, [], function (accounts) {
+//                             users[user[0].id].accounts = accounts;
+//                             res.status(200).json(users[user[0].id])
+//                         })
+//                     } else {
+//                         console.log("Wrong password")
+//                         res.status(403).json({ error: true, error_reason: "WRONG_PASSWORD" })
+
+//                     }
+//                 } else {
+//                     // User not found
+//                     console.log('User not found');
+//                     res.status(404).json({ error: true, error_reason: "EMAIL_NOT_FOUND" })
+//                 }
+//             }
+//         })
+//     } else {
+//         res.status(400).json({ error: true, error_reason: "BAD_REQUEST" })
+//     }
+// })
 
 
 function getAccoutnsBalance(user, index, accounts, callback) {
@@ -179,7 +218,7 @@ app.post('/createAccount', function (req, res) {
 
 
 app.post("/conversation", function (req, res) {
-    processChatMessage(req,res);
+    processChatMessage(req, res);
 })
 
 
