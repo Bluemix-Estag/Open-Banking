@@ -30,7 +30,7 @@ class ChatHandler {
         var request = URLRequest(url: URL(string: self.CONVERSATION_URL)!)
         request.httpMethod = "POST"
         
-        var output = try? JSON(["user": self.USER_ID, "text": text]).rawData(options: [])
+        var output = try? JSON(["text": text]).rawData(options: [])
         request.httpBody = output
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in

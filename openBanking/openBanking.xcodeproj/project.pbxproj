@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D0D7A7B1F82B30900BD6F2C /* OptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0D7A7A1F82B30900BD6F2C /* OptionCell.swift */; };
 		8D2804AB1F8290C300BB47BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D2804AA1F8290C300BB47BF /* Assets.xcassets */; };
 		8D2B2EFF1F8485FB000B1E59 /* ChatTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2B2EFE1F8485FB000B1E59 /* ChatTableView.swift */; };
 		8D2B2F011F8489FA000B1E59 /* WatsonChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2B2F001F8489FA000B1E59 /* WatsonChatCell.swift */; };
@@ -26,6 +25,9 @@
 		8DAD2C971F80A04200A5C488 /* CadastrarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD2C961F80A04200A5C488 /* CadastrarViewController.swift */; };
 		8DAD2C9A1F80A25000A5C488 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD2C991F80A25000A5C488 /* Alert.swift */; };
 		8DAD2C9C1F80AE7100A5C488 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD2C9B1F80AE7100A5C488 /* User.swift */; };
+		8DCB5B1F1F883E5F00C0A770 /* BankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCB5B1E1F883E5F00C0A770 /* BankCell.swift */; };
+		8DCB5B211F88563000C0A770 /* GradientTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCB5B201F88563000C0A770 /* GradientTabBar.swift */; };
+		8DDE8F871F87F69700DC2F6E /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDE8F861F87F69700DC2F6E /* GradientView.swift */; };
 		8DE4C8BB1F856B440086AA68 /* UserChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE4C8BA1F856B440086AA68 /* UserChatCell.swift */; };
 		8DEB8A821F86751900E078B8 /* RestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEB8A811F86751900E078B8 /* RestHandler.swift */; };
 		FDE15B40066DE7A03A663C35 /* Pods_openBanking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF7B4AE3E2CB4820DB0F11A /* Pods_openBanking.framework */; };
@@ -33,7 +35,6 @@
 
 /* Begin PBXFileReference section */
 		2EF7B4AE3E2CB4820DB0F11A /* Pods_openBanking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_openBanking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D0D7A7A1F82B30900BD6F2C /* OptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionCell.swift; sourceTree = "<group>"; };
 		8D2804AA1F8290C300BB47BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D2B2EFE1F8485FB000B1E59 /* ChatTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableView.swift; sourceTree = "<group>"; };
 		8D2B2F001F8489FA000B1E59 /* WatsonChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatsonChatCell.swift; sourceTree = "<group>"; };
@@ -54,6 +55,9 @@
 		8DAD2C961F80A04200A5C488 /* CadastrarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CadastrarViewController.swift; sourceTree = "<group>"; };
 		8DAD2C991F80A25000A5C488 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		8DAD2C9B1F80AE7100A5C488 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		8DCB5B1E1F883E5F00C0A770 /* BankCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCell.swift; sourceTree = "<group>"; };
+		8DCB5B201F88563000C0A770 /* GradientTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientTabBar.swift; sourceTree = "<group>"; };
+		8DDE8F861F87F69700DC2F6E /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		8DE4C8BA1F856B440086AA68 /* UserChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserChatCell.swift; sourceTree = "<group>"; };
 		8DEB8A811F86751900E078B8 /* RestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestHandler.swift; sourceTree = "<group>"; };
 		CAFF6BC23B0D4DF9CF0E2742 /* Pods-openBanking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-openBanking.debug.xcconfig"; path = "Pods/Target Support Files/Pods-openBanking/Pods-openBanking.debug.xcconfig"; sourceTree = "<group>"; };
@@ -143,11 +147,13 @@
 				8DAD2C9B1F80AE7100A5C488 /* User.swift */,
 				8D9701261F81484C0011EADF /* Indicator.swift */,
 				8D9C90491F82A4510088E2E2 /* BankAccountCell.swift */,
-				8D0D7A7A1F82B30900BD6F2C /* OptionCell.swift */,
 				8D7CA3DA1F83CDB700C5F3B7 /* ChatHandler.swift */,
 				8D2B2F001F8489FA000B1E59 /* WatsonChatCell.swift */,
 				8DE4C8BA1F856B440086AA68 /* UserChatCell.swift */,
 				8DEB8A811F86751900E078B8 /* RestHandler.swift */,
+				8DDE8F861F87F69700DC2F6E /* GradientView.swift */,
+				8DCB5B1E1F883E5F00C0A770 /* BankCell.swift */,
+				8DCB5B201F88563000C0A770 /* GradientTabBar.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -283,22 +289,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DDE8F871F87F69700DC2F6E /* GradientView.swift in Sources */,
 				8D94CEEF1F82FAC0009A53DE /* CreateAccountViewController.swift in Sources */,
 				8D2B2EFF1F8485FB000B1E59 /* ChatTableView.swift in Sources */,
 				8DE4C8BB1F856B440086AA68 /* UserChatCell.swift in Sources */,
 				8D9701251F8141F60011EADF /* MainViewController.swift in Sources */,
 				8D7CA3DB1F83CDB700C5F3B7 /* ChatHandler.swift in Sources */,
+				8DCB5B211F88563000C0A770 /* GradientTabBar.swift in Sources */,
 				8DAD2C971F80A04200A5C488 /* CadastrarViewController.swift in Sources */,
 				8DAD2C951F80A01900A5C488 /* LoginViewController.swift in Sources */,
 				8DAD2C9C1F80AE7100A5C488 /* User.swift in Sources */,
 				8DA9ED041F80968200204A82 /* ViewController.swift in Sources */,
-				8D0D7A7B1F82B30900BD6F2C /* OptionCell.swift in Sources */,
 				8D94CEF11F82FC70009A53DE /* AccountDetailsViewController.swift in Sources */,
 				8DAD2C9A1F80A25000A5C488 /* Alert.swift in Sources */,
 				8DA9ED021F80968200204A82 /* AppDelegate.swift in Sources */,
 				8D9701271F81484C0011EADF /* Indicator.swift in Sources */,
 				8D7CA3DD1F83E0D800C5F3B7 /* ChatViewController.swift in Sources */,
 				8D2B2F011F8489FA000B1E59 /* WatsonChatCell.swift in Sources */,
+				8DCB5B1F1F883E5F00C0A770 /* BankCell.swift in Sources */,
 				8DEB8A821F86751900E078B8 /* RestHandler.swift in Sources */,
 				8D9C904A1F82A4510088E2E2 /* BankAccountCell.swift in Sources */,
 			);

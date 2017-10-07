@@ -10,6 +10,37 @@ import UIKit
 import SwiftyJSON
 
 
+extension UITextField {
+    
+    @IBInspectable var placeHolderColor: UIColor? {
+        get {
+            return self.placeHolderColor
+        }
+        set {
+            self.attributedPlaceholder = NSAttributedString(string:self.placeholder != nil ? self.placeholder! : "", attributes:[NSAttributedStringKey.foregroundColor: newValue!])
+        }
+    }
+    
+    func setBottomBorder() {
+        self.borderStyle = .none
+        self.layer.masksToBounds = false
+        var bottomLine = CALayer()
+        bottomLine.frame = CGRect(x: 0.0, y: self.frame.height - 1, width: self.frame.width + 1 ,height: 1.0)
+        bottomLine.backgroundColor = UIColor.white.cgColor
+        self.borderStyle = UITextBorderStyle.none
+        self.layer.addSublayer(bottomLine)
+//        let border = CALayer()
+//        let width = CGFloat(2.0)
+//        border.borderColor = UIColor.darkGray.cgColor
+//        border.frame = CGRect(x: 0, y: self.frame.size.height - width, width:  self.frame.size.width, height: self.frame.size.height)
+//
+//        border.borderWidth = width
+//        self.layer.addSublayer(border)
+//        self.layer.masksToBounds = true
+        
+    }
+}
+
 class LoginViewController: UIViewController {
     let LOGGIN_URL = "https://openbanking.mybluemix.net/login"
     let indicator = Indicator()
@@ -77,11 +108,23 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+      
+        
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.emailField.setBottomBorder()
+        self.passwordField.setBottomBorder()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+//        self.navigationController?.navigationBar.backgroundColor = UIColor(red: 0.322, green: 0.678, blue: 0.647, alpha: 0)
+//        self.navigationController?.navigationBar.tintColor = UIColor(red: 0.322, green: 0.678, blue: 0.647, alpha: 0)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
     }
 
     override func didReceiveMemoryWarning() {

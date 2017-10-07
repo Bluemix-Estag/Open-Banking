@@ -9,15 +9,27 @@
 import UIKit
 import SwiftyJSON
 
+
+
+
+
+
+
 class CadastrarViewController: UIViewController {
     let CREATE_ACCOUNT_URL = "https://openbanking.mybluemix.net/createAccount"
     var LOGGED_USER: User = User()
     let indicator = Indicator()
     
-    @IBOutlet weak var emailField: UITextField!
+    
     @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var confirmPasswordField: UITextField!
+    
+//    @IBOutlet weak var emailField: UITextField!
+//    @IBOutlet weak var nameField: UITextField!
+//    @IBOutlet weak var passwordField: UITextField!
+//    @IBOutlet weak var confirmPasswordField: UITextField!
     
     @IBAction func register(_ sender: Any) {
         if let email = emailField.text {
@@ -72,9 +84,20 @@ class CadastrarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+     
+    }
+    
+    override func viewDidLayoutSubviews() {
+        nameField.setBottomBorder()
+        emailField.setBottomBorder()
+        passwordField.setBottomBorder()
+        confirmPasswordField.setBottomBorder()
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
     }
     
     override func didReceiveMemoryWarning() {

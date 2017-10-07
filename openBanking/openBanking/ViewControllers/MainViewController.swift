@@ -12,6 +12,7 @@ import SwiftyJSON
 
 
 
+
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
     let UPDATE_USER_INFO_URL = "https://openbanking.mybluemix.net/updateInfo"
@@ -19,7 +20,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var homeTabBarItem: UITabBarItem!
     
-    let sections = ["Contas"," "]
     
     let LOGGED_USER: User = User()
     var refreshControl : UIRefreshControl!
@@ -93,6 +93,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         
+        print(LOGGED_USER.accounts)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -107,88 +109,62 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return sections.count
+        return 1
     }
     
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section]
-    }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
             if LOGGED_USER.accounts.count == 0 {
                 return 1
             }else{
                 return LOGGED_USER.accounts.count
             }
-        }
-        return 1
+        
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return CGFloat(integerLiteral: 40)
-        }else{
-            return CGFloat(integerLiteral: 40)
-        }
-        
-        
-        
-    }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 0 {
-            return CGFloat(integerLiteral: 70)
-        }else{
-            return UITableViewAutomaticDimension
-        }
-    }
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//            return CGFloat(integerLiteral: 40)
+//    }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//            return CGFloat(integerLiteral: 70)
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
+       
             if LOGGED_USER.accounts.count > 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "bankAccountCell", for: indexPath) as! BankAccountCell
+                print("passou aqui")
+                let cell = tableView.dequeueReusableCell(withIdentifier: "bankCell", for: indexPath) as! BankCell
                 let nf = NumberFormatter()
                 nf.numberStyle = .decimal
                 nf.locale = Locale(identifier: "pt_BR")
-                cell.bankIcon.image = #imageLiteral(resourceName: "safebox")
-                cell.accountName.text = LOGGED_USER.accounts[indexPath.row]["accountName"] as! String
+                cell.bankImage.image = #imageLiteral(resourceName: "safebox")
+                cell.bankName.text = LOGGED_USER.accounts[indexPath.row]["accountName"] as! String
                 let balanceNumber = LOGGED_USER.accounts[indexPath.row]["accountBalance"]
-                cell.accountBalance.text = "R$ "+nf.string(from: balanceNumber as! NSNumber)!
+                cell.bankBalance.text = "R$ "+nf.string(from: balanceNumber as! NSNumber)!
                 return cell
             }else{
-                let cell = tableView.dequeueReusableCell(withIdentifier: "optionCell",for: indexPath) as! OptionCell
-                cell.optionLabel.text = "Nenhuma conta cadastrada"
-                cell.optionLabel.textColor = .black
+                let cell = tableView.dequeueReusableCell(withIdentifier: "optionCell",for: indexPath)
+                cell.textLabel?.text = "Nenhuma conta cadastrada"
+                cell.textLabel?.textColor = .black
                 return cell
             }
-        }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "optionCell",for: indexPath) as! OptionCell
-            cell.optionLabel.text = "Adicionar uma nova conta"
-            return cell
-        }
+      
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        //        if indexPath.section == 0 {
-        //            performSegue(withIdentifier: "bankAccountDetailSegue", sender: indexPath.row)
-        //        }
-        
-        
-        
-        
-        
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "bankAccountDetailSegue" {
-            let destinationVC = segue.destination as! AccountDetailsViewController
-            destinationVC.accountIndex = sender as! Int
-            
-            
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "bankAccountDetailSegue" {
+//            let destinationVC = segue.destination as! AccountDetailsViewController
+//            destinationVC.accountIndex = sender as! Int
+//
+//
+//        }
+//    }
     
     
     
