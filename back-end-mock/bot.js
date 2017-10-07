@@ -39,8 +39,8 @@ fs.stat('./vcap.json', function (err, stat) {
 // get the app environment from Cloud Foundry, defaulting to local VCAP
 function initializeAppEnv() {
     appEnv = cfenv.getAppEnv(appEnvOpts);
-        require('dotenv').load();
-        initConversation(); 
+    appEnv.services = appEnvOpts.vcap.services;
+    initConversation(); 
 }
 
 // =====================================

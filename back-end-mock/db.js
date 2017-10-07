@@ -40,8 +40,8 @@ fs.stat('./vcap.json', function (err, stat) {
 
 function initializeAppEnv() {
     appEnv = cfenv.getAppEnv(appEnvOpts);
-        require('dotenv').load();
-        initCloudant(); 
+    appEnv.services = appEnvOpts.vcap.services;
+    initCloudant();
 }
 
 // =====================================
@@ -52,7 +52,8 @@ var dbname = "open_banking_db";
 var db;
 
 function initCloudant() {
-    var cloudantURL =  appEnv.getServiceCreds("cloudantNoSQLDB").url || process.env.CLOUDANT_URL ;
+    console.log(JSON.stringify(appEnv.getServiceCreds("cloudantNoSQLDB")))
+    var cloudantURL = appEnv.getServiceCreds("cloudantNoSQLDB").url || process.env.CLOUDANT_URL;
     var Cloudant = require('cloudant')({
         url: cloudantURL
         , plugin: 'retry'
@@ -95,7 +96,7 @@ function initCloudant() {
                 console.log('users document created successfully');
             }
         })
-    }    
+    }
 }
 
 module.exports = db
