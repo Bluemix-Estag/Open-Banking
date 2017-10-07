@@ -16,7 +16,8 @@ import SwiftyJSON
 
 
 class CadastrarViewController: UIViewController {
-    let CREATE_ACCOUNT_URL = "https://openbanking.mybluemix.net/createAccount"
+    //    let CREATE_ACCOUNT_URL = "https://openbanking.mybluemix.net/createAccount"
+    let CREATE_ACCOUNT_URL = "https://openbanking.localtunnel.me/createAccount"
     var LOGGED_USER: User = User()
     let indicator = Indicator()
     
@@ -26,10 +27,10 @@ class CadastrarViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var confirmPasswordField: UITextField!
     
-//    @IBOutlet weak var emailField: UITextField!
-//    @IBOutlet weak var nameField: UITextField!
-//    @IBOutlet weak var passwordField: UITextField!
-//    @IBOutlet weak var confirmPasswordField: UITextField!
+    //    @IBOutlet weak var emailField: UITextField!
+    //    @IBOutlet weak var nameField: UITextField!
+    //    @IBOutlet weak var passwordField: UITextField!
+    //    @IBOutlet weak var confirmPasswordField: UITextField!
     
     @IBAction func register(_ sender: Any) {
         if let email = emailField.text {
@@ -58,14 +59,19 @@ class CadastrarViewController: UIViewController {
                                         }else{
                                             var title = ""
                                             var msg = ""
-                                            switch data["error_reason"].string! {
-                                            case "EMAIL_ALREADY_REGISTERED":
-                                                title = "Email inválido"
-                                                msg = "Email já está cadastrado"
-                                                break
-                                            default:
+                                            if data != nil {
+                                                switch data["error_reason"].string! {
+                                                case "EMAIL_ALREADY_REGISTERED":
+                                                    title = "Email inválido"
+                                                    msg = "Email já está cadastrado"
+                                                    break
+                                                default:
+                                                    title = "Erro"
+                                                    msg = "Um erro ocorreu, tente mais tarde"
+                                                }
+                                            }else{
                                                 title = "Erro"
-                                                msg = "Um erro ocorreu, tente mais tarde"
+                                                msg = "Um erro ocorreu, tente novamente!"
                                             }
                                             DispatchQueue.main.async {
                                                 self.indicator.hideActivityIndicator(uiView: self.view)
@@ -84,7 +90,7 @@ class CadastrarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+        
     }
     
     override func viewDidLayoutSubviews() {

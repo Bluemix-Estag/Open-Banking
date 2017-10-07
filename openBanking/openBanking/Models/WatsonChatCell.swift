@@ -16,6 +16,8 @@ class WatsonChatCell: UITableViewCell {
     @IBOutlet weak var labelViewHolder: UIView!
     
     @IBOutlet weak var rightChat: UIImageView!
+    @IBOutlet weak var dateLabel: UILabel!
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         

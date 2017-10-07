@@ -6,4 +6,11 @@
 //  Copyright © 2017 Rabah Zeineddine. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class BlankBankCell: UITableViewCell {
+    
+    
+    @IBOutlet weak var messageLabel: UILabel!
+    
+}

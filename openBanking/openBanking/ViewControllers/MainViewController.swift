@@ -15,7 +15,8 @@ import SwiftyJSON
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
-    let UPDATE_USER_INFO_URL = "https://openbanking.mybluemix.net/updateInfo"
+//    let UPDATE_USER_INFO_URL = "https://openbanking.mybluemix.net/updateInfo"
+    let UPDATE_USER_INFO_URL = "https://openbanking.localtunnel.me/updateInfo"
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var homeTabBarItem: UITabBarItem!
@@ -28,17 +29,19 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @objc func refreshUserDetails() {
         UIApplication.shared.beginIgnoringInteractionEvents()
         RestHandler.shared().POST(url: UPDATE_USER_INFO_URL, data: JSON(LOGGED_USER.getDictionary())) { (data, error) in
-            UIApplication.shared.endIgnoringInteractionEvents()
+            print(data)
             if error {
                 DispatchQueue.main.async(execute: {
                     self.present(Alert(title: "Error", message: "Erro ao atualizar os dados, tente novamente.").getAlert(),animated: true, completion: nil)
                     self.refreshControl.endRefreshing()
+                    UIApplication.shared.endIgnoringInteractionEvents()
                 })
             }else{
                 self.LOGGED_USER.setValue(userDic: data.dictionaryObject!)
                 DispatchQueue.main.async(execute: {
                     self.tableView.reloadData()
                     self.refreshControl.endRefreshing()
+                    UIApplication.shared.endIgnoringInteractionEvents()
                 })
             }
             
@@ -123,14 +126,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//            return CGFloat(integerLiteral: 40)
-//    }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//            return CGFloat(integerLiteral: 70)
-//    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
             if LOGGED_USER.accounts.count > 0 {
@@ -145,16 +140,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.bankBalance.text = "R$ "+nf.string(from: balanceNumber as! NSNumber)!
                 return cell
             }else{
-                let cell = tableView.dequeueReusableCell(withIdentifier: "optionCell",for: indexPath)
-                cell.textLabel?.text = "Nenhuma conta cadastrada"
-                cell.textLabel?.textColor = .black
+                let cell = tableView.dequeueReusableCell(withIdentifier: "blankCell",for: indexPath) as! BlankBankCell
+                cell.messageLabel?.text = "Nenhuma conta cadastrada"
+
                 return cell
             }
       
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

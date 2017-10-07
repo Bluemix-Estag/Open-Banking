@@ -17,6 +17,7 @@ class UserChatCell: UITableViewCell {
     
     @IBOutlet weak var leftChat: UIImageView!
     
+    @IBOutlet weak var dateLabel: UILabel!
     override func layoutSubviews() {
         super.layoutSubviews()
         userBubbleHolder.layer.cornerRadius = 10

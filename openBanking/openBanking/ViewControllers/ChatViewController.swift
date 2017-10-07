@@ -150,14 +150,18 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
 //                    currentIndex = currentIndex - 1
 //                }
 //            }
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "hh:mm"
             
             if Array(message.keys)[0] == "watson" {
                 var cell = tableView.dequeueReusableCell(withIdentifier: "chatBubbleCell", for: indexPath) as! WatsonChatCell
                 cell.labelText.text =  messages[indexPath.row]["watson"]
+                cell.dateLabel.text = dateFormatter.string(from: Date())
                 return cell
             }else{
                 var cell = tableView.dequeueReusableCell(withIdentifier: "UserBubbleIdentifier", for: indexPath) as! UserChatCell
                 cell.userTextLabel.text =  messages[indexPath.row]["user"]
+                cell.dateLabel.text = dateFormatter.string(from: Date())
                 return cell
             }
             

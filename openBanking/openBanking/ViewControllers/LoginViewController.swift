@@ -42,7 +42,8 @@ extension UITextField {
 }
 
 class LoginViewController: UIViewController {
-    let LOGGIN_URL = "https://openbanking.mybluemix.net/login"
+//    let LOGGIN_URL = "https://openbanking.mybluemix.net/login"
+    let LOGGIN_URL = "https://openbanking.localtunnel.me/login"
     let indicator = Indicator()
     
     

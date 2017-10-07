@@ -16,6 +16,7 @@
 		8D94CEF11F82FC70009A53DE /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94CEF01F82FC70009A53DE /* AccountDetailsViewController.swift */; };
 		8D9701251F8141F60011EADF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9701241F8141F60011EADF /* MainViewController.swift */; };
 		8D9701271F81484C0011EADF /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9701261F81484C0011EADF /* Indicator.swift */; };
+		8D9BFB0A1F8925590002D60A /* BlankBankCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9BFB091F8925590002D60A /* BlankBankCell.swift */; };
 		8D9C904A1F82A4510088E2E2 /* BankAccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9C90491F82A4510088E2E2 /* BankAccountCell.swift */; };
 		8DA9ED021F80968200204A82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA9ED011F80968200204A82 /* AppDelegate.swift */; };
 		8DA9ED041F80968200204A82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA9ED031F80968200204A82 /* ViewController.swift */; };
@@ -44,6 +45,7 @@
 		8D94CEF01F82FC70009A53DE /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
 		8D9701241F8141F60011EADF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8D9701261F81484C0011EADF /* Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
+		8D9BFB091F8925590002D60A /* BlankBankCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankBankCell.swift; sourceTree = "<group>"; };
 		8D9C90491F82A4510088E2E2 /* BankAccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankAccountCell.swift; sourceTree = "<group>"; };
 		8DA9ECFE1F80968200204A82 /* openBanking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = openBanking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DA9ED011F80968200204A82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				8DDE8F861F87F69700DC2F6E /* GradientView.swift */,
 				8DCB5B1E1F883E5F00C0A770 /* BankCell.swift */,
 				8DCB5B201F88563000C0A770 /* GradientTabBar.swift */,
+				8D9BFB091F8925590002D60A /* BlankBankCell.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 			files = (
 				8DDE8F871F87F69700DC2F6E /* GradientView.swift in Sources */,
 				8D94CEEF1F82FAC0009A53DE /* CreateAccountViewController.swift in Sources */,
+				8D9BFB0A1F8925590002D60A /* BlankBankCell.swift in Sources */,
 				8D2B2EFF1F8485FB000B1E59 /* ChatTableView.swift in Sources */,
 				8DE4C8BB1F856B440086AA68 /* UserChatCell.swift in Sources */,
 				8D9701251F8141F60011EADF /* MainViewController.swift in Sources */,
