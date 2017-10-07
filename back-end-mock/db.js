@@ -115,7 +115,7 @@ const addUser = (user, callback) => {
     let response = {
 
     }
-    this.getUsers((err, doc) => {
+    getUsers((err, doc) => {
         if (err) {
             response.statusCode = 500;
             response.data = {
@@ -138,14 +138,14 @@ const addUser = (user, callback) => {
                 var key;
                 if (keys.length > 0) {
                     key = parseInt(keys[keys.length - 1]) + 1;
-                    users[key] = data;
+                    users[key] = user;
                 } else {
                     // First User to be registered
                     key = "1"
-                    users['1'] = data;
+                    users['1'] = user;
                 }
                 doc.users = users;
-                doc.registeredUsers.push({ email: data.email.toLowerCase(), id: key });
+                doc.registeredUsers.push({ email: user.email.toLowerCase(), id: key });
 
                 db.insert(doc, 'users', (error, document) => {
                     if (error) {
