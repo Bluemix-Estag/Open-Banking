@@ -16,8 +16,8 @@ import SwiftyJSON
 
 
 class CadastrarViewController: UIViewController {
-    //    let CREATE_ACCOUNT_URL = "https://openbanking.mybluemix.net/createAccount"
-    let CREATE_ACCOUNT_URL = "https://openbanking.localtunnel.me/createAccount"
+        let CREATE_ACCOUNT_URL = "https://openbanking.mybluemix.net/createAccount"
+//    let CREATE_ACCOUNT_URL = "https://openbanking.localtunnel.me/createAccount"
     var LOGGED_USER: User = User()
     let indicator = Indicator()
     

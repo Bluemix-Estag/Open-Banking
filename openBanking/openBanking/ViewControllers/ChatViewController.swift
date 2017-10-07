@@ -33,7 +33,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.customReloadTable()
                 
                 ChatHandler.shared().sendMessage(text: text, completion: { (result,error) in
-                    print(error)
+                    print(result)
                     if !error {
                         
                         DispatchQueue.main.async(execute: {
