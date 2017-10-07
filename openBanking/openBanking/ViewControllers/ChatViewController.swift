@@ -13,6 +13,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     var messages: [[String: String]] = []
+    let dateFormatter = DateFormatter()
     
     
     @IBOutlet weak var chatBarTab: UITabBarItem!
@@ -28,7 +29,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let text = textMessageField.text?.trimmingCharacters(in: .whitespacesAndNewlines) {
             if text != "" {
                 // Send message and add a bubble to table view
-                self.messages.append(["user": text])
+                let userDictionary = ["user": text, "date": dateFormatter.string(from: Date())]
+                self.messages.append(userDictionary)
                 self.textMessageField.text = ""
                 self.customReloadTable()
                 
@@ -37,13 +39,15 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                     if !error {
                         
                         DispatchQueue.main.async(execute: {
-                            self.messages.append(["watson":result["output"]["text"][0].string!])
+                            let watsonDic = ["watson": result["output"]["text"][0].string! , "date": self.dateFormatter.string(from: Date())]
+                            self.messages.append(watsonDic)
                             self.customReloadTable()
                         })
                         
                     }else{
                         DispatchQueue.main.async(execute: {
-                            self.messages.append(["watson": "Um erro ocorreu, tente novamente."])
+                            var watsonDic = ["watson": "Um erro ocorreu, tente novamente.", "date": self.dateFormatter.string(from: Date())]
+                            self.messages.append(watsonDic)
                             self.customReloadTable()
                         })
                     }
@@ -64,8 +68,10 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        dateFormatter.dateFormat = "hh:mm"
         if let pendingMessages = UserDefaults.standard.value(forKey: "pendingMesssages") as? Array<String> {
             for var msg in pendingMessages {
                 self.messages.append(["watson": msg])
@@ -134,34 +140,18 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if messages.count > 0{
             var message = messages[indexPath.row]
-//            var currentIndex = indexPath.row - 1
-//            let key = Array(message.keys)[0]
-//            if currentIndex > 0 {
-//                while  Array(messages[currentIndex].keys)[0] == key {
-//                    if key == "watson" {
-//                        if let celula = self.tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0)) as? WatsonChatCell {
-//                            celula.rightChat.image = nil
-//                        }
-//                    }else{
-//                        if let celula = self.tableView.cellForRow(at: IndexPath(row: currentIndex, section: 0 )) as? UserChatCell{
-//                            celula.leftChat.image = nil
-//                        }
-//                    }
-//                    currentIndex = currentIndex - 1
-//                }
-//            }
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "hh:mm"
+
+        
             
             if Array(message.keys)[0] == "watson" {
                 var cell = tableView.dequeueReusableCell(withIdentifier: "chatBubbleCell", for: indexPath) as! WatsonChatCell
                 cell.labelText.text =  messages[indexPath.row]["watson"]
-                cell.dateLabel.text = dateFormatter.string(from: Date())
+                cell.dateLabel.text = messages[indexPath.row]["date"]
                 return cell
             }else{
                 var cell = tableView.dequeueReusableCell(withIdentifier: "UserBubbleIdentifier", for: indexPath) as! UserChatCell
                 cell.userTextLabel.text =  messages[indexPath.row]["user"]
-                cell.dateLabel.text = dateFormatter.string(from: Date())
+                cell.dateLabel.text =  messages[indexPath.row]["date"]
                 return cell
             }
             

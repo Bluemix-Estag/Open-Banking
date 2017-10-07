@@ -31,6 +31,9 @@ class RestHandler {
         request.httpBody = try? data.rawData()
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let task = URLSession.shared.dataTask(with: request) { (data, urlResponse, error) in
+            print("POST DATA: \(JSON(data))")
+            print("POST response: \(urlResponse)")
+            print("POST error: \(error)")
             if var statusCode = (urlResponse as? HTTPURLResponse)?.statusCode {
                 if error == nil && statusCode == 200 {
                     completion(JSON(data), false)
