@@ -10,8 +10,12 @@
   "author": "Rabah Zeineddine",
   "license": "ISC",
   "dependencies": {
+    "cfenv": "^1.0.4",
     "cloudant": "^1.8.0",
+    "dotenv": "^4.0.0",
     "express": "^4.16.1",
-    "request": "^2.83.0"
+    "node-uuid": "^1.4.8",
+    "request": "^2.83.0",
+    "watson-developer-cloud": "^2.40.0"
   }
 }

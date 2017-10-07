@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var request = require('request');
 var app = express();
 var fs = require('fs');
-
+// var chatbot = require('./bot')
 app.use(bodyParser.json());
 
 var port = process.env.PORT || 3000;
@@ -11,84 +11,23 @@ app.set('port', port);
 
 
 
-var db;
+var db = require('./db.js');
 
-var cloudant;
-
-var dbCredentials = {
-    dbName: 'open_banking_db'
-};
-
-function getDBCredentialsUrl(jsonData) {
-    var vcapServices = JSON.parse(jsonData);
-    for (var vcapService in vcapServices) {
-        if (vcapService.match(/cloudant/i)) {
-            return vcapServices[vcapService][0].credentials.url;
-        }
-    }
-}
-
-
-function initDBConnection() {
-    if (process.env.VCAP_SERVICES) {
-        dbCredentials.url = getDBCredentialsUrl(process.env.VCAP_SERVICES);
-    } else {
-        dbCredentials.url = getDBCredentialsUrl(fs.readFileSync("vcap-local.json", "utf-8"));
-    }
-
-    cloudant = require('cloudant')(dbCredentials.url);
-    cloudant.db.create(dbCredentials.dbName, function (err, res) {
-        if (err) {
-            console.log('Could not create new db: ' + dbCredentials.dbName + ', it might already exist.');
-        }
-    });
-
-    db = cloudant.use(dbCredentials.dbName);
-    // Check Stores document.
-    db.get('users', {
-        revs_info: true
-    }, function (err, doc) {
-        if (err) {
-            console.log('Creating Users document...');
-            creatUsers();
-        } else {
-            console.log('Users document already exists!');
-        }
-    })
-}
-initDBConnection();
-
-function creatUsers() {
-    var doc = {
-        "users": {
-
-        },
-        "registeredUsers": []
-    }
-    db.insert(doc, 'users', function (err, document) {
-        if (err) {
-            console.log('Error on creating users document')
-        } else {
-            console.log('users document created successfully');
-        }
-    })
-}
-
-app.post("/updateInfo",function(req,res){
+app.post("/updateInfo", function (req, res) {
     console.log("Update method invoked..");
     var data = req.body
-    
-    if(data != null && data.email != null && data.password != null ){
+
+    if (data != null && data.email != null && data.password != null) {
 
 
-        db.get('users', {revs_info : true},function(err,doc){
-            if(err){
-                res.status(500).json({error: true, error_reason : "INTERNAL_SERVER_ERROR"})
-            }else{
+        db.get('users', { revs_info: true }, function (err, doc) {
+            if (err) {
+                res.status(500).json({ error: true, error_reason: "INTERNAL_SERVER_ERROR" })
+            } else {
 
                 var registeredUsers = doc.registeredUsers
-                var user = registeredUsers.filter(function(user){  return user.email == data.email.toLowerCase()  })
-                if(user.length == 1){
+                var user = registeredUsers.filter(function (user) { return user.email == data.email.toLowerCase() })
+                if (user.length == 1) {
 
 
                     var users = doc.users;
@@ -107,17 +46,17 @@ app.post("/updateInfo",function(req,res){
                     }
 
 
-                }else{
+                } else {
                     res.status(404).json({ error: true, error_reason: "EMAIL_NOT_FOUND" })
                 }
 
             }
         })
 
-    }else{
-        res.status(400).json({error: true, error_reason : "BAD_REQUEST"})
+    } else {
+        res.status(400).json({ error: true, error_reason: "BAD_REQUEST" })
     }
-    
+
 })
 
 app.post('/login', function (req, res) {
@@ -156,7 +95,7 @@ app.post('/login', function (req, res) {
                 }
             }
         })
-    }else{
+    } else {
         res.status(400).json({ error: true, error_reason: "BAD_REQUEST" })
     }
 })
@@ -176,7 +115,7 @@ function getAccoutnsBalance(user, index, accounts, callback) {
             body: JSON.stringify(user.accounts[index])
         }
         request(options, function (error, response, body) {
-            
+
             if (!error && response.statusCode == 200) {
                 user.accounts[index].accountBalance = parseFloat(body)
                 accounts.push(user.accounts[index])
@@ -237,6 +176,26 @@ app.post('/createAccount', function (req, res) {
 
 
 })
+
+
+app.post("/conversation", function (req, res) {
+    processChatMessage(req,res);
+})
+
+
+const processChatMessage = (req, res) => {
+    chatbot.sendMessage(req, (err, data) => {
+        if (err) {
+            console.log("Error in sending message: ", err);
+            res.status(err.code || 500).json(err);
+        } else {
+            console.log('Got response: ', JSON.stringify(data));
+            res.status(200).json(data);
+        }
+    });
+}
+
+
 
 
 app.listen(port, function () {
