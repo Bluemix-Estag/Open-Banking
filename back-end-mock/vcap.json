@@ -1,0 +1,31 @@
+{
+    "services": {
+        "conversation": [
+            {
+                "label": "conversation",
+                "name": "conversation",
+                "credentials": {
+                    "url": "https://gateway.watsonplatform.net/conversation/api",
+                    "username": "4d943b31-846f-4d11-aec9-b9e7b2053771",
+                    "password": "UbgjVsl8eZQb",
+                    "conversationWorkspace": "14524fbe-1907-45b2-bf97-ebb060b3d0c5"
+                }
+            }
+        ],
+        "cloudantNoSQLDB": [
+            {
+                "label": "cloudant",
+                "name": "cloudantNoSQLDB",
+                "credentials": {
+                    "username": "bbbfec4f-31de-4d53-a521-141ce626cfa4-bluemix",
+                    "password": "dc263bc7376763f03bd995b787b7f8700879606c11010769b00438272a6a3f5f",
+                    "host": "bbbfec4f-31de-4d53-a521-141ce626cfa4-bluemix.cloudant.com",
+                    "port": 443,
+                    "url": "https://bbbfec4f-31de-4d53-a521-141ce626cfa4-bluemix:dc263bc7376763f03bd995b787b7f8700879606c11010769b00438272a6a3f5f@bbbfec4f-31de-4d53-a521-141ce626cfa4-bluemix.cloudant.com"
+                  }
+            }
+        ]
+    }
+}
+
+
