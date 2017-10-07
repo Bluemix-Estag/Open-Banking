@@ -27,11 +27,6 @@ class CadastrarViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var confirmPasswordField: UITextField!
     
-    //    @IBOutlet weak var emailField: UITextField!
-    //    @IBOutlet weak var nameField: UITextField!
-    //    @IBOutlet weak var passwordField: UITextField!
-    //    @IBOutlet weak var confirmPasswordField: UITextField!
-    
     @IBAction func register(_ sender: Any) {
         if let email = emailField.text {
             if email == ""{
@@ -54,6 +49,7 @@ class CadastrarViewController: UIViewController {
                                             UserDefaults.standard.set(self.LOGGED_USER.getDictionary(), forKey: "LOGGED_USER")
                                             UserDefaults.standard.synchronize()
                                             DispatchQueue.main.async {
+                                                self.indicator.hideActivityIndicator(uiView: self.view)
                                                 self.performSegue(withIdentifier: "principleSegue", sender: nil)
                                             }
                                         }else{

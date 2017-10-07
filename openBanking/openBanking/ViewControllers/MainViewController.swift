@@ -56,12 +56,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        UserDefaults.standard.set("MainPage", forKey: "currentUserPage")
-        //        UserDefaults.standard.synchronize()
+    
         
         UIApplication.shared.beginIgnoringInteractionEvents()
         ChatHandler.shared().sendMessage(text: "Oi", completion: ({ (result, error) in
-            print(result)
+       
+            
             if !error {
                 
                 DispatchQueue.main.async(execute: {
@@ -86,8 +86,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     //              fvc.watsonReceivedMessage(text: result["output"]["text"][0].string!)
                 })
             }else{
-                UIApplication.shared.endIgnoringInteractionEvents()
+                DispatchQueue.main.async(execute: {
+                    UIApplication.shared.endIgnoringInteractionEvents()
+                })
             }
+            
+           
         }))
         
         self.tableView.delegate = self
