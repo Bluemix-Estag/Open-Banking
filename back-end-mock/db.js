@@ -101,16 +101,77 @@ function initCloudant() {
 
 
 const getUsers = (callback) => {
-    db.get('users', {revs_info: true}, (err,doc)=>{
+    db.get('users', { revs_info: true }, (err, doc) => {
         console.log(err)
         if (err) {
             callback(true, null);
-        }else{
+        } else {
             callback(false, doc)
         }
     })
 }
 
+const addUser = (user, callback) => {
+    let response = {
+
+    }
+    this.getUsers((err, doc) => {
+        if (err) {
+            response.statusCode = 500;
+            response.data = {
+                error: true,
+                error_reason: "INTERNAL_SERVER_ERROR"
+            }
+            callback(response);
+        } else {
+
+            if (doc.registeredUsers.filter(function (registeredUser) { return registeredUser.email == user.email.toLowerCase() }).length == 1) {
+                response.statusCode = 403;
+                response.data = {
+                    error: true,
+                    error_reason: "EMAIL_ALREADY_REGISTERED"
+                }
+                callback(response);
+            } else {
+                var users = doc.users;
+                var keys = Object.keys(users);
+                var key;
+                if (keys.length > 0) {
+                    key = parseInt(keys[keys.length - 1]) + 1;
+                    users[key] = data;
+                } else {
+                    // First User to be registered
+                    key = "1"
+                    users['1'] = data;
+                }
+                doc.users = users;
+                doc.registeredUsers.push({ email: data.email.toLowerCase(), id: key });
+
+                db.insert(doc, 'users', (error, document) => {
+                    if (error) {
+                        console.log("Error on adding new user");
+                        response.statusCode = 500
+                        response.data = {
+                            error: true,
+                            error_reason: "INTERNAL_SERVER_ERROR"
+                        }
+                        callback(response);
+                    } else {
+                        console.log("User registered successfully");
+                        response.statusCode = 200
+                        response.data = {
+                            error: false,
+                            msg: "User registered successfully"
+                        }
+                        callback(response)
+                    }
+                })
+            }
+        }
+    })
+}
+
 module.exports = {
-    getUsers
+    getUsers,
+    addUser
 }
