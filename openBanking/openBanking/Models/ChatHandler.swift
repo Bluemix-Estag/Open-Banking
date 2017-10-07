@@ -36,7 +36,7 @@ class ChatHandler {
         request.httpBody = output
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if error == nil && data!= nil {
+            if error == nil && data != nil {
                     completion(JSON(data), false)
             }else{
                 print(error?.localizedDescription)
