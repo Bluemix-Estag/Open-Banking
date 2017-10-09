@@ -16,8 +16,8 @@ import SwiftyJSON
 
 
 class CadastrarViewController: UIViewController {
-        let CREATE_ACCOUNT_URL = "https://openbanking.mybluemix.net/createAccount"
-//    let CREATE_ACCOUNT_URL = "https://openbanking.localtunnel.me/createAccount"
+//        let CREATE_ACCOUNT_URL = "https://openbanking.mybluemix.net/createAccount"
+    let CREATE_ACCOUNT_URL = "https://openbanking.localtunnel.me/createAccount"
     var LOGGED_USER: User = User()
     let indicator = Indicator()
     
@@ -42,11 +42,11 @@ class CadastrarViewController: UIViewController {
                                     present(Alert(title: "Senhas inválidas", message: "Favor confirme a sua senha").getAlert(), animated: true, completion: nil)
                                 }else{
                                     self.indicator.showActivityIndicator(uiView: self.view)
-                                    LOGGED_USER = User(email: email, name: name, password: password, accounts: [])
+                                    LOGGED_USER = User(email: email, name: name, password: password, accounts: [], payments: [])
                                     // Register the user
                                     RestHandler.shared().POST(url: CREATE_ACCOUNT_URL, data: JSON(LOGGED_USER.getDictionary()), completion: { (data, error) in
                                         if !error {
-                                            UserDefaults.standard.set(self.LOGGED_USER.getDictionary(), forKey: "LOGGED_USER")
+                                            UserDefaults.standard.set(data["user"].dictionaryObject, forKey: "LOGGED_USER")
                                             UserDefaults.standard.synchronize()
                                             DispatchQueue.main.async {
                                                 self.indicator.hideActivityIndicator(uiView: self.view)
@@ -55,7 +55,7 @@ class CadastrarViewController: UIViewController {
                                         }else{
                                             var title = ""
                                             var msg = ""
-                                            if data != nil {
+                                            if data != JSON.null {
                                                 switch data["error_reason"].string! {
                                                 case "EMAIL_ALREADY_REGISTERED":
                                                     title = "Email inválido"

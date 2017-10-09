@@ -14,22 +14,25 @@ class User {
     var name: String
     var password: String
     var accounts: [ [String: Any] ]
+    var payments: [ [String: Any] ]
     init() {
         self.email = ""
         self.name = ""
         self.password = ""
         self.accounts = [[:]]
+        self.payments = [[:]]
     }
     
-    init(email: String, name: String, password: String, accounts: [ [String: Any] ]) {
+    init(email: String, name: String, password: String, accounts: [ [String: Any] ], payments: [[String: Any]]) {
         self.email = email
         self.name = name
         self.password =  password
         self.accounts = accounts
+        self.payments = payments
     }
     
     func getDictionary() -> NSDictionary {
-        return  ["email": self.email, "name": self.name, "password": self.password, "accounts": self.accounts]
+        return  ["email": self.email, "name": self.name, "password": self.password, "accounts": self.accounts, "payments": self.payments]
     }
     
     func setValue(userDic: [String: Any]){
@@ -37,5 +40,6 @@ class User {
         self.name = userDic["name"]! as! String
         self.password = userDic["password"]! as! String
         self.accounts = userDic["accounts"] as! [[String : Any]]
+        self.payments = userDic["payments"] as! [[String: Any]]
     }
 }

@@ -15,8 +15,8 @@ import SwiftyJSON
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
-    let UPDATE_USER_INFO_URL = "https://openbanking.mybluemix.net/updateInfo"
-    //    let UPDATE_USER_INFO_URL = "https://openbanking.localtunnel.me/updateInfo"
+//    let UPDATE_USER_INFO_URL = "https://openbanking.mybluemix.net/updateInfo"
+    let UPDATE_USER_INFO_URL = "https://openbanking.localtunnel.me/updateInfo"
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var homeTabBarItem: UITabBarItem!
@@ -101,6 +101,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             if let obUser = user as? [String: Any] {
                 self.LOGGED_USER.setValue(userDic: obUser)
                 
+                print(self.LOGGED_USER.getDictionary())
             }
         }
         
@@ -136,15 +137,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if LOGGED_USER.accounts.count > 0 {
-            print("passou aqui")
+        if LOGGED_USER.accounts.count > 0 { 
             let cell = tableView.dequeueReusableCell(withIdentifier: "bankCell", for: indexPath) as! BankCell
             let nf = NumberFormatter()
             nf.numberStyle = .decimal
             nf.locale = Locale(identifier: "pt_BR")
             cell.bankImage.image = #imageLiteral(resourceName: "safebox")
             cell.bankName.text = LOGGED_USER.accounts[indexPath.row]["accountName"] as! String
-            let balanceNumber = LOGGED_USER.accounts[indexPath.row]["accountBalance"]
+            let balanceNumber = LOGGED_USER.accounts[indexPath.row]["balance"]
             cell.bankBalance.text = "R$ "+nf.string(from: balanceNumber as! NSNumber)!
             return cell
         }else{
