@@ -110,6 +110,56 @@ const getUsers = (callback) => {
     })
 }
 
+const getUserByEmail = (email,callback) => {
+
+    db.get('users', { revs_info: true} , (err, doc) => {
+        if (err ) {
+            callback({"error": true, "error_reason": "INTERNAL_SERVER_ERROR" , statusCode: 500 }, null);
+        }else{
+            var registeredUsers = doc.registeredUsers;
+            var user = registeredUsers.filter(function (user) { return user.email == email.toLowerCase() })
+            if ( user.length == 1){
+                var users = doc.users;
+                callback(null, users[user[0].id]);
+            }else{
+                callback({ error: true, error_reason: "EMAIL_NOT_FOUND" , statusCode: 404 } , null );
+            }
+        }
+    });
+}
+
+const updateUser = (updatedUser,callback) => {
+    getUsers( (error, doc )=> {
+        if (error){
+            // return error
+            callback({error: true, error_reason: "INTERNAL_SERVER_ERROR" , statusCode: 500}, null);
+        }else{
+
+            var registeredUsers = doc.registeredUsers;
+            var user = registeredUsers.filter( function(user) { return user.email == updatedUser.email.toLowerCase() });
+            if ( user.length == 1 ){
+
+                var users = doc.users;
+                users[user[0].id] = updatedUser;
+                doc.users = users;
+                db.insert(doc,'users', (err, document) => {
+                    if (err){
+                        // Error
+                        callback({error: true, error_reason: "INTERNAL_SERVER_ERROR" , statusCode: 500}, null);
+
+                    }else{
+                        callback(null, doc.users[user[0].id]);
+                    }
+                })
+            }else{
+                callback({ error: true, error_reason: "EMAIL_NOT_FOUND" , statusCode: 404 } , null );
+            }
+        }
+    })
+
+
+}
+
 const addUser = (user, callback) => {
     let response = {
 
@@ -173,5 +223,7 @@ const addUser = (user, callback) => {
 
 module.exports = {
     getUsers,
-    addUser
+    addUser,
+    getUserByEmail,
+    updateUser
 }

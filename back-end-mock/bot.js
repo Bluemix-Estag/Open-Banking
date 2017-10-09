@@ -113,7 +113,6 @@ var chatbot = {
                         return callback(err);
                     } else {
                         var conv = data.context.conversation_id;
-                        console.log("Got response from Conversation: ", JSON.stringify(data));
                         callback(null, data);
                     }
                 });
@@ -140,7 +139,7 @@ var chatbot = {
 
 function buildContextObject(req, callback) {
 
-    console.log(`Received data : ${JSON.stringify(req.body,null,2)}`)
+    // console.log(`Received data : ${JSON.stringify(req.body,null,2)}`)
 
     var message = req.body.text;
     var context;
