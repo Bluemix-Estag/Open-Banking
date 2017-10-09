@@ -102,7 +102,6 @@ function initCloudant() {
 
 const getUsers = (callback) => {
     db.get('users', { revs_info: true }, (err, doc) => {
-        console.log(err)
         if (err) {
             callback(true, null);
         } else {
@@ -161,7 +160,8 @@ const addUser = (user, callback) => {
                         response.statusCode = 200
                         response.data = {
                             error: false,
-                            msg: "User registered successfully"
+                            msg: "User registered successfully",
+                            user: user
                         }
                         callback(response)
                     }
