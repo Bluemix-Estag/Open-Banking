@@ -139,6 +139,9 @@ var chatbot = {
  */
 
 function buildContextObject(req, callback) {
+
+    console.log(`Received data : ${JSON.stringify(req.body,null,2)}`)
+
     var message = req.body.text;
     var context;
     if (!message) {
@@ -161,6 +164,10 @@ function buildContextObject(req, callback) {
     params.input = {
         text: message // User defined text to be sent to service
     };
+
+    if ( req.body.user  ){
+        params.context.user = req.body.user
+    }
     return callback(null, params);
 }
 module.exports = chatbot;
