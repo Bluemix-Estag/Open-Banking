@@ -15,8 +15,8 @@ import SwiftyJSON
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
-//    let UPDATE_USER_INFO_URL = "https://openbanking.mybluemix.net/updateInfo"
-    let UPDATE_USER_INFO_URL = "https://openbanking.localtunnel.me/updateInfo"
+    let UPDATE_USER_INFO_URL = "https://openbanking.mybluemix.net/updateInfo"
+//    let UPDATE_USER_INFO_URL = "https://openbanking.localtunnel.me/updateInfo"
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var homeTabBarItem: UITabBarItem!

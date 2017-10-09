@@ -12,8 +12,8 @@ import SwiftyJSON
 class ChatHandler {
     
     //    private let CONVERSATION_URL = "https://demos-node-red.mybluemix.net/openbankingbot"
-//  private let CONVERSATION_URL = "https://openbanking.mybluemix.net/conversation"
-    private let CONVERSATION_URL = "https://openbanking.localtunnel.me/conversation"
+  private let CONVERSATION_URL = "https://openbanking.mybluemix.net/conversation"
+//    private let CONVERSATION_URL = "https://openbanking.localtunnel.me/conversation"
     private var CONTEXT: [String: Any] = [:]
     
     //    private let USER_ID = UUID().uuidString

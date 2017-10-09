@@ -49,7 +49,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                         
                     }else{
                         DispatchQueue.main.async(execute: {
-                            var watsonDic = ["watson": "Um erro ocorreu, tente novamente.", "date": self.dateFormatter.string(from: Date())]
+                            let watsonDic = ["watson": "Um erro ocorreu, tente novamente.", "date": self.dateFormatter.string(from: Date())]
                             self.messages.append(watsonDic)
                             self.customReloadTable()
                         })
@@ -76,8 +76,8 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.dataSource = self
         dateFormatter.dateFormat = "hh:mm"
         if let pendingMessages = UserDefaults.standard.value(forKey: "pendingMesssages") as? Array<String> {
-            for var msg in pendingMessages {
-                self.messages.append(["watson": msg])
+            for msg in pendingMessages {
+                self.messages.append(["watson": msg, "date": self.dateFormatter.string(from: Date())])
             }
             UserDefaults.standard.removeObject(forKey: "pendingMesssages")
             self.chatBarTab.badgeValue = nil
@@ -115,7 +115,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
             if ((self.tabBarController?.tabBar.frame.size.height) != nil) {
                 tabBarHeight = Int(self.tabBarController!.tabBar.frame.size.height)
             }
-            var height =  -Float(keyboardHeight) + Float(tabBarHeight)
+            let height =  -Float(keyboardHeight) + Float(tabBarHeight)
             self.optionsBottomConstraint.constant =  CGFloat(height)
             
             UIView.animate(withDuration: 1000, animations: {
@@ -142,17 +142,17 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if messages.count > 0{
-            var message = messages[indexPath.row]
+            let message = messages[indexPath.row]
 
         
             
             if Array(message.keys)[0] == "watson" {
-                var cell = tableView.dequeueReusableCell(withIdentifier: "chatBubbleCell", for: indexPath) as! WatsonChatCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "chatBubbleCell", for: indexPath) as! WatsonChatCell
                 cell.labelText.text =  messages[indexPath.row]["watson"]
                 cell.dateLabel.text = messages[indexPath.row]["date"]
                 return cell
             }else{
-                var cell = tableView.dequeueReusableCell(withIdentifier: "UserBubbleIdentifier", for: indexPath) as! UserChatCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "UserBubbleIdentifier", for: indexPath) as! UserChatCell
                 cell.userTextLabel.text =  messages[indexPath.row]["user"]
                 cell.dateLabel.text =  messages[indexPath.row]["date"]
                 return cell
