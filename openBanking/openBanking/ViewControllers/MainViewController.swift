@@ -58,12 +58,22 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
     
         
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        if let user = UserDefaults.standard.value(forKeyPath: "LOGGED_USER"){
+            if let obUser = user as? [String: Any] {
+                self.LOGGED_USER.setValue(userDic: obUser)
+            }
+        }
+        
         UIApplication.shared.beginIgnoringInteractionEvents()
-        ChatHandler.shared().sendMessage(text: "Oi", completion: ({ (result, error) in
-       
-            
+        let body: [String: Any] = [
+            "text": "",
+            "user": self.LOGGED_USER.getDictionary()
+        ]
+        ChatHandler.shared().sendMessage(body: body, completion: ({ (result, error) in
             if !error {
-                
                 DispatchQueue.main.async(execute: {
                     var messages: [String] = []
                     if var pendingMessages = UserDefaults.standard.object(forKey: "pendingMessages") as? Array<String>{
@@ -77,7 +87,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                         if let chatVC = self.tabBarController?.viewControllers![1] as? ChatViewController {
                             chatVC.chatBarTab.badgeValue = String(messages.count)
                         }
-                        
                     }
                     UIApplication.shared.endIgnoringInteractionEvents()
                     //                    }
@@ -93,19 +102,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
            
         }))
-        
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        
-        if let user = UserDefaults.standard.value(forKeyPath: "LOGGED_USER"){
-            if let obUser = user as? [String: Any] {
-                self.LOGGED_USER.setValue(userDic: obUser)
-                
-                print(self.LOGGED_USER.getDictionary())
-            }
-        }
-        
-        print(LOGGED_USER.accounts)
         
     }
     
@@ -137,7 +133,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if LOGGED_USER.accounts.count > 0 { 
+        if LOGGED_USER.accounts.count > 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "bankCell", for: indexPath) as! BankCell
             let nf = NumberFormatter()
             nf.numberStyle = .decimal

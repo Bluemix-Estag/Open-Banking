@@ -33,14 +33,17 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.messages.append(userDictionary)
                 self.textMessageField.text = ""
                 self.customReloadTable()
-                
-                ChatHandler.shared().sendMessage(text: text, completion: { (result,error) in
+                let body: [String: Any] = ["text": text]
+                ChatHandler.shared().sendMessage(body: body , completion: { (result,error) in
                     print(result)
                     if !error {
                         
                         DispatchQueue.main.async(execute: {
-                            let watsonDic = ["watson": result["output"]["text"][0].string! , "date": self.dateFormatter.string(from: Date())]
-                            self.messages.append(watsonDic)
+                            
+                            result["output"]["text"].array?.forEach({ (text) in
+                                self.messages.append(["watson": text.string!, "date": self.dateFormatter.string(from: Date())])
+                            })
+                            
                             self.customReloadTable()
                         })
                         

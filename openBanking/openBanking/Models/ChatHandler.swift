@@ -12,8 +12,10 @@ import SwiftyJSON
 class ChatHandler {
     
     //    private let CONVERSATION_URL = "https://demos-node-red.mybluemix.net/openbankingbot"
-//    private let CONVERSATION_URL = "https://openbanking.mybluemix.net/conversation"
-        private let CONVERSATION_URL = "https://openbanking.localtunnel.me/conversation"
+//  private let CONVERSATION_URL = "https://openbanking.mybluemix.net/conversation"
+    private let CONVERSATION_URL = "https://openbanking.localtunnel.me/conversation"
+    private var CONTEXT: [String: Any] = [:]
+    
     //    private let USER_ID = UUID().uuidString
     // MARK: - Properties
     private static var chatHandler:ChatHandler = {
@@ -27,12 +29,13 @@ class ChatHandler {
     private init() {
         
     }
-    func sendMessage(text: String, completion: @escaping (JSON, Bool) -> ()) {
+    func sendMessage(body: [String: Any], completion: @escaping (JSON, Bool) -> ()) {
         print("Send message method invoked..")
+        var outputData = body
         var request = URLRequest(url: URL(string: self.CONVERSATION_URL)!)
         request.httpMethod = "POST"
-        
-        let output = try? JSON(["text": text]).rawData(options: [])
+        outputData["context"] = self.CONTEXT
+        let output = try? JSON(outputData).rawData(options: [])
         request.httpBody = output
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -43,6 +46,7 @@ class ChatHandler {
             if let statusCode = (response as? HTTPURLResponse)?.statusCode {
                 
                 if error == nil && statusCode == 200 {
+                    self.CONTEXT = JSON(data)["context"].dictionaryObject!
                     completion(JSON(data), false)
                 }else{
                     print(error?.localizedDescription)
