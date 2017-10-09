@@ -32,8 +32,8 @@ app.post("/updateInfo", function (req, res) {
                         // Get user accounts Balance
                         console.log(" Checking user accounts");
                         // getAccoutnsBalance(users[user[0].id], 0, [], function (accounts) {
-                            // users[user[0].id].accounts = accounts;
-                            res.status(200).json(users[user[0].id])
+                        // users[user[0].id].accounts = accounts;
+                        res.status(200).json(users[user[0].id])
                         // })
                     } else {
                         console.log("Wrong password")
@@ -69,8 +69,8 @@ app.post('/login', (req, res) => {
                         // Get user accounts Balance
                         console.log(" Checking user accounts");
                         // getAccoutnsBalance(users[user[0].id], 0, [], function (accounts) {
-                            // users[user[0].id].accounts = accounts;
-                            res.status(200).json(users[user[0].id])
+                        // users[user[0].id].accounts = accounts;
+                        res.status(200).json(users[user[0].id])
                         // })
                     } else {
                         console.error("Wrong password")
@@ -116,13 +116,24 @@ function getAccoutnsBalance(user, index, accounts, callback) {
 }
 
 
+
+// require('./randomData')((result) => { 
+
+// console.log(JSON.stringify(result,null,2))
+// var accountsName  = result.accounts.map((account) => { return account.accountName })
+// console.log(JSON.stringify(result.accounts.filter( (account, index) => {  return accountsName.lastIndexOf(account.accountName) == index } )));
+
+
+// })
+
 app.post('/createAccount', (req, res) => {
     console.log('Create account method invoked..');
     const data = req.body;
     if (data != null && data.email != null && data.name != null && data.password != null && data.accounts != null && data.payments != null) {
         require('./randomData')((result) => {
-            data.accounts = result.accounts;
+            data.accounts = result.accounts
             data.payments = result.payments;
+            data.accounts[0].services[0].name = "Milhas"
             db.addUser(data, (response) => {
                 res.status(response.statusCode).json(response.data);
             });
@@ -145,13 +156,54 @@ const processChatMessage = (req, res) => {
             console.log("Error in sending message: ", err);
             res.status(err.code || 500).json(err);
         } else {
-            console.log('Got response: ', JSON.stringify(data));
-            res.status(200).json(data);
+            console.log('Got response: ', JSON.stringify(data, null, 2));
+
+
+            // Check for any action required
+            if (data.output.action != null) {
+                switch (data.output.action) {
+                    case "payBill":
+                    console.log('Paying user method invoked..');
+                        payBillUserAccount(data, res);
+                        break;
+                }
+            } else {
+                res.status(200).json(data);
+            }
         }
     });
 }
 
-
+const payBillUserAccount = (data, res) => {
+    var user = data.context.user;
+    db.getUserByEmail(user.email, (error, user) => {
+        if (error) {
+            res.status( error.statusCode ).json({ error: true, error_reason: error.error_reason });
+        } else {
+            // Pay the bill for the user !
+            // You can call an API of the corresponding bank.
+            user.accounts[0].oldBalance = user.accounts[0].balance;
+            user.accounts[0].balance = user.accounts[0].balance - user.payments[0].bill;
+            user.accounts[0].services[0].balance = user.accounts[0].services[0].balance + parseInt(user.payments[0].bill);
+            user.payments.shift();
+            // Here the user info updated
+            // Update on Cloudant
+            db.updateUser(user,(error, updatedUser) => {
+                if (error) {
+                    res.status(error.statusCode).json({error: true, error_reason: error.error_reason});
+                }else{
+                    // User updated, now send to watson conversation to notify the user about the new balance! 
+                    data.context.user = updatedUser;
+                    data.context.paid = true;
+                    var req = {
+                        body: data
+                    }
+                    processChatMessage(req,res);
+                }
+            })
+        }
+    })
+};
 
 
 app.listen(port, function () {
