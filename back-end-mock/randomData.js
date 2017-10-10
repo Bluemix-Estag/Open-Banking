@@ -5,8 +5,8 @@ var schema = {
     "properties": {
         accounts: {
             "type": "array",
-            "minItems": 2,
-            "maxItems": 4,
+            "minItems": 3,
+            "maxItems": 6,
             "uniqueItems": true,
             "items": {
                 "type": "object",
@@ -23,8 +23,8 @@ var schema = {
                     },
                     services: {
                         "type": "array",
-                        "minItems": 1,
-                        "maxItems": 1,
+                        "minItems": 2,
+                        "maxItems": 5,
                         "items": {
                             "type": "object",
                             "properties": {
