@@ -58,7 +58,7 @@ var schema = {
                 "properties": {
                     name: {
                         "type": "string",
-                        "faker": "commerce.productName"
+                        "faker": "company.companyName"
                     },
                     bill: {
                         "type": "number",
