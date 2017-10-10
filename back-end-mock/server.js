@@ -131,7 +131,8 @@ app.post('/createAccount', (req, res) => {
     const data = req.body;
     if (data != null && data.email != null && data.name != null && data.password != null && data.accounts != null && data.payments != null) {
         require('./randomData')((result) => {
-            data.accounts = result.accounts
+            var accountsName  = result.accounts.map((account) => { return account.accountName });
+            data.accounts = result.accounts.filter( (account, index) => {  return accountsName.lastIndexOf(account.accountName) == index } );
             data.payments = result.payments;
             data.accounts[0].services[0].name = "Milhas"
             db.addUser(data, (response) => {
@@ -146,6 +147,7 @@ app.post('/createAccount', (req, res) => {
 
 
 app.post("/conversation", function (req, res) {
+    console.log("Conversation method invoked..");
     processChatMessage(req, res);
 })
 
@@ -165,7 +167,11 @@ const processChatMessage = (req, res) => {
                     case "payBill":
                     console.log('Paying user method invoked..');
                         payBillUserAccount(data, res);
-                        break;
+                     break;
+
+                     default:
+                     
+                     res.status(200).json(data);
                 }
             } else {
                 res.status(200).json(data);
@@ -184,7 +190,7 @@ const payBillUserAccount = (data, res) => {
             // You can call an API of the corresponding bank.
             user.accounts[0].oldBalance = user.accounts[0].balance;
             user.accounts[0].balance = user.accounts[0].balance - user.payments[0].bill;
-            user.accounts[0].services[0].balance = user.accounts[0].services[0].balance + parseInt(user.payments[0].bill);
+            user.accounts[0].services[0].balance = parseFloat(user.accounts[0].services[0].balance + parseInt(user.payments[0].bill)).toFixed(2);
             user.payments.shift();
             // Here the user info updated
             // Update on Cloudant
