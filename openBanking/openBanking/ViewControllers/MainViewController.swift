@@ -15,8 +15,7 @@ import SwiftyJSON
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
     
-    let UPDATE_USER_INFO_URL = "https://openbanking.mybluemix.net/updateInfo"
-//    let UPDATE_USER_INFO_URL = "https://openbanking.localtunnel.me/updateInfo"
+    let UPDATE_USER_INFO_URL = RestHandler.shared().ENDPOINT_URL + "/updateInfo"
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var homeTabBarItem: UITabBarItem!
@@ -56,7 +55,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        
         
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -72,27 +71,28 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             "text": "",
             "user": self.LOGGED_USER.getDictionary()
         ]
+        ChatHandler.shared().CONTEXT = [:]
         ChatHandler.shared().sendMessage(body: body, completion: ({ (result, error) in
             if !error {
                 DispatchQueue.main.async(execute: {
-                    var messages: [String] = []
-                    if var pendingMessages = UserDefaults.standard.object(forKey: "pendingMessages") as? Array<String>{
-                        messages = pendingMessages
-                    }
-                    if let message = result["output"]["text"][0].string {
-                        messages.append(message)
-                        UserDefaults.standard.setValue( messages , forKey: "pendingMesssages")
-                        UserDefaults.standard.synchronize()
-                        
-                        if let chatVC = self.tabBarController?.viewControllers![1] as? ChatViewController {
-                            chatVC.chatBarTab.badgeValue = String(messages.count)
+                    if let action = result["output"]["action"].string {
+                        if action == "notifyUser" {
+                            var messages: [String] = []
+                            if var pendingMessages = UserDefaults.standard.object(forKey: "pendingMessages") as? Array<String>{
+                                messages = pendingMessages
+                            }
+                            if let message = result["output"]["text"][0].string {
+                                messages.append(message)
+                                UserDefaults.standard.setValue( messages , forKey: "pendingMesssages")
+                                UserDefaults.standard.synchronize()
+                                
+                                if let chatVC = self.tabBarController?.viewControllers![1] as? ChatViewController {
+                                    chatVC.chatBarTab.badgeValue = String(messages.count)
+                                }
+                            }
                         }
                     }
                     UIApplication.shared.endIgnoringInteractionEvents()
-                    //                    }
-                    //              let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
-                    //              let fvc = storyboard.instantiateViewController(withIdentifier: "ChatStoryBoard") as! ChatViewController
-                    //              fvc.watsonReceivedMessage(text: result["output"]["text"][0].string!)
                 })
             }else{
                 DispatchQueue.main.async(execute: {
@@ -100,7 +100,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 })
             }
             
-           
+            
         }))
         
     }

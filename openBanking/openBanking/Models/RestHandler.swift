@@ -19,6 +19,8 @@ class RestHandler {
     private init(){
         
     }
+     let ENDPOINT_URL = "https://openbanking.mybluemix.net"
+//    let ENDPOINT_URL = "https://openbanking.localtunnel.me"
     
     class func shared() -> RestHandler{
         return restHandler

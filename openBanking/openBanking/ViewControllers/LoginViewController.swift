@@ -24,26 +24,19 @@ extension UITextField {
     func setBottomBorder() {
         self.borderStyle = .none
         self.layer.masksToBounds = false
-        var bottomLine = CALayer()
+        let bottomLine = CALayer()
         bottomLine.frame = CGRect(x: 0.0, y: self.frame.height - 1, width: self.frame.width + 1 ,height: 1.0)
         bottomLine.backgroundColor = UIColor.white.cgColor
         self.borderStyle = UITextBorderStyle.none
         self.layer.addSublayer(bottomLine)
-//        let border = CALayer()
-//        let width = CGFloat(2.0)
-//        border.borderColor = UIColor.darkGray.cgColor
-//        border.frame = CGRect(x: 0, y: self.frame.size.height - width, width:  self.frame.size.width, height: self.frame.size.height)
-//
-//        border.borderWidth = width
-//        self.layer.addSublayer(border)
-//        self.layer.masksToBounds = true
+
         
     }
 }
 
 class LoginViewController: UIViewController {
-    let LOGGIN_URL = "https://openbanking.mybluemix.net/login"
-//    let LOGGIN_URL = "https://openbanking.localtunnel.me/login"
+    
+    let LOGGIN_URL = RestHandler.shared().ENDPOINT_URL + "/login"
     let indicator = Indicator()
     
     
