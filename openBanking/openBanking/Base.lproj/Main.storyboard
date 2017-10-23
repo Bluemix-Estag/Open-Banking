@@ -4,7 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -606,7 +606,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4WL-pG-Uet">
-                                <rect key="frame" x="32" y="400" width="311" height="45"/>
+                                <rect key="frame" x="32" y="472" width="311" height="45"/>
                                 <color key="backgroundColor" red="0.86274509803921573" green="0.8901960784313725" blue="0.90588235294117647" alpha="0.26000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="QkX-9w-75X"/>
@@ -651,7 +651,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Senha" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J4x-0G-Vyt">
-                                <rect key="frame" x="32" y="256" width="311" height="40"/>
+                                <rect key="frame" x="32" y="328" width="311" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="gtN-8l-jXW"/>
                                 </constraints>
@@ -665,7 +665,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Confirmar Senha" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RDR-aR-tzW">
-                                <rect key="frame" x="32" y="328" width="311" height="40"/>
+                                <rect key="frame" x="32" y="400" width="311" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="LvI-Sn-TYb"/>
                                 </constraints>
@@ -678,24 +678,41 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="CPF" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WsJ-Na-YkN">
+                                <rect key="frame" x="32" y="256" width="311" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Pmr-hv-ZRY"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
+                                        <color key="value" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="4WL-pG-Uet" firstAttribute="top" secondItem="RDR-aR-tzW" secondAttribute="bottom" constant="32" id="3g8-11-bAc"/>
-                            <constraint firstItem="u07-Rc-P0T" firstAttribute="top" secondItem="dPs-gX-R0i" secondAttribute="bottom" constant="32" id="80P-kg-d4o"/>
-                            <constraint firstItem="J4x-0G-Vyt" firstAttribute="leading" secondItem="u7j-KV-Uca" secondAttribute="leading" constant="32" id="8Xs-sg-HwR"/>
-                            <constraint firstItem="u7j-KV-Uca" firstAttribute="trailing" secondItem="4WL-pG-Uet" secondAttribute="trailing" constant="32" id="Fyf-rl-UJC"/>
-                            <constraint firstItem="u7j-KV-Uca" firstAttribute="trailing" secondItem="RDR-aR-tzW" secondAttribute="trailing" constant="32" id="G2m-RP-z1h"/>
-                            <constraint firstItem="RDR-aR-tzW" firstAttribute="top" secondItem="J4x-0G-Vyt" secondAttribute="bottom" constant="32" id="GdD-TF-LUO"/>
-                            <constraint firstItem="RDR-aR-tzW" firstAttribute="leading" secondItem="u7j-KV-Uca" secondAttribute="leading" constant="32" id="IbJ-f2-KPy"/>
-                            <constraint firstItem="dPs-gX-R0i" firstAttribute="top" secondItem="u7j-KV-Uca" secondAttribute="top" constant="48" id="JM0-uq-foG"/>
-                            <constraint firstItem="J4x-0G-Vyt" firstAttribute="top" secondItem="u07-Rc-P0T" secondAttribute="bottom" constant="32" id="OxH-F4-WbN"/>
-                            <constraint firstItem="u07-Rc-P0T" firstAttribute="leading" secondItem="u7j-KV-Uca" secondAttribute="leading" constant="32" id="SIm-9I-yhj"/>
-                            <constraint firstItem="u7j-KV-Uca" firstAttribute="trailing" secondItem="dPs-gX-R0i" secondAttribute="trailing" constant="32" id="Vht-tF-iic"/>
-                            <constraint firstItem="u7j-KV-Uca" firstAttribute="trailing" secondItem="u07-Rc-P0T" secondAttribute="trailing" constant="32" id="WyF-UN-BAm"/>
-                            <constraint firstItem="dPs-gX-R0i" firstAttribute="leading" secondItem="u7j-KV-Uca" secondAttribute="leading" constant="32" id="boU-Ue-mFx"/>
-                            <constraint firstItem="4WL-pG-Uet" firstAttribute="leading" secondItem="u7j-KV-Uca" secondAttribute="leading" constant="32" id="btq-gr-dd8"/>
-                            <constraint firstItem="u7j-KV-Uca" firstAttribute="trailing" secondItem="J4x-0G-Vyt" secondAttribute="trailing" constant="32" id="yAq-mC-PbU"/>
+                            <constraint firstItem="WsJ-Na-YkN" firstAttribute="leading" secondItem="u7j-KV-Uca" secondAttribute="leading" constant="32" id="7jg-CT-N6y"/>
+                            <constraint firstItem="4WL-pG-Uet" firstAttribute="top" secondItem="RDR-aR-tzW" secondAttribute="bottom" constant="32" id="BGi-m8-6MU"/>
+                            <constraint firstItem="J4x-0G-Vyt" firstAttribute="top" secondItem="WsJ-Na-YkN" secondAttribute="bottom" constant="32" id="CFG-Gz-Qmp"/>
+                            <constraint firstItem="u7j-KV-Uca" firstAttribute="trailing" secondItem="RDR-aR-tzW" secondAttribute="trailing" constant="32" id="Dxi-Zf-cNR"/>
+                            <constraint firstItem="u7j-KV-Uca" firstAttribute="trailing" secondItem="4WL-pG-Uet" secondAttribute="trailing" constant="32" id="FIN-sd-SNe"/>
+                            <constraint firstItem="RDR-aR-tzW" firstAttribute="top" secondItem="J4x-0G-Vyt" secondAttribute="bottom" constant="32" id="VTr-gT-goV"/>
+                            <constraint firstItem="u07-Rc-P0T" firstAttribute="top" secondItem="dPs-gX-R0i" secondAttribute="bottom" constant="32" id="W6f-Of-Pjn"/>
+                            <constraint firstItem="u7j-KV-Uca" firstAttribute="trailing" secondItem="J4x-0G-Vyt" secondAttribute="trailing" constant="32" id="avG-qf-v9K"/>
+                            <constraint firstItem="u7j-KV-Uca" firstAttribute="trailing" secondItem="WsJ-Na-YkN" secondAttribute="trailing" constant="32" id="d9a-J5-IVf"/>
+                            <constraint firstItem="RDR-aR-tzW" firstAttribute="leading" secondItem="u7j-KV-Uca" secondAttribute="leading" constant="32" id="dEE-Vj-kx5"/>
+                            <constraint firstItem="dPs-gX-R0i" firstAttribute="top" secondItem="u7j-KV-Uca" secondAttribute="top" constant="48" id="dK6-wy-eNy"/>
+                            <constraint firstItem="u7j-KV-Uca" firstAttribute="trailing" secondItem="u07-Rc-P0T" secondAttribute="trailing" constant="32" id="kmT-fF-asJ"/>
+                            <constraint firstItem="4WL-pG-Uet" firstAttribute="leading" secondItem="u7j-KV-Uca" secondAttribute="leading" constant="32" id="lhY-hO-7ha"/>
+                            <constraint firstItem="u07-Rc-P0T" firstAttribute="leading" secondItem="u7j-KV-Uca" secondAttribute="leading" constant="32" id="mBe-B5-ao5"/>
+                            <constraint firstItem="WsJ-Na-YkN" firstAttribute="top" secondItem="u07-Rc-P0T" secondAttribute="bottom" constant="32" id="qau-va-19Y"/>
+                            <constraint firstItem="J4x-0G-Vyt" firstAttribute="leading" secondItem="u7j-KV-Uca" secondAttribute="leading" constant="32" id="vAg-ej-ehf"/>
+                            <constraint firstItem="dPs-gX-R0i" firstAttribute="leading" secondItem="u7j-KV-Uca" secondAttribute="leading" constant="32" id="vME-jX-hyJ"/>
+                            <constraint firstItem="u7j-KV-Uca" firstAttribute="trailing" secondItem="dPs-gX-R0i" secondAttribute="trailing" constant="32" id="z8z-kn-ifo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="u7j-KV-Uca"/>
                         <userDefinedRuntimeAttributes>
@@ -710,6 +727,7 @@
                     <navigationItem key="navigationItem" title="Cadastro" id="nSX-d0-tKh"/>
                     <connections>
                         <outlet property="confirmPasswordField" destination="RDR-aR-tzW" id="Tde-pa-8qi"/>
+                        <outlet property="cpfField" destination="WsJ-Na-YkN" id="tqc-ww-wcU"/>
                         <outlet property="emailField" destination="u07-Rc-P0T" id="o1i-nf-h0P"/>
                         <outlet property="nameField" destination="dPs-gX-R0i" id="iYt-yh-lpc"/>
                         <outlet property="passwordField" destination="J4x-0G-Vyt" id="t5p-NT-Fuc"/>

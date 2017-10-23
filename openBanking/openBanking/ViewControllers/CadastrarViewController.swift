@@ -25,6 +25,7 @@ class CadastrarViewController: UIViewController {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var confirmPasswordField: UITextField!
+    @IBOutlet weak var cpfField: UITextField!
     
     @IBAction func register(_ sender: Any) {
         if let email = emailField.text {
@@ -35,45 +36,56 @@ class CadastrarViewController: UIViewController {
                     if name == "" {
                         present(Alert(title: "Nome inválido", message: "Favor informe seu nome").getAlert(), animated: true, completion: nil)
                     }else{
-                        if let password = passwordField.text{
-                            if let confirmPassword = confirmPasswordField.text{
-                                if password != confirmPassword || password == "" || confirmPassword == "" {
-                                    present(Alert(title: "Senhas inválidas", message: "Favor confirme a sua senha").getAlert(), animated: true, completion: nil)
-                                }else{
-                                    self.indicator.showActivityIndicator(uiView: self.view)
-                                    LOGGED_USER = User(email: email, name: name, password: password, accounts: [], payments: [])
-                                    // Register the user
-                                    RestHandler.shared().POST(url: CREATE_ACCOUNT_URL, data: JSON(LOGGED_USER.getDictionary()), completion: { (data, error) in
-                                        if !error {
-                                            UserDefaults.standard.set(data["user"].dictionaryObject, forKey: "LOGGED_USER")
-                                            UserDefaults.standard.synchronize()
-                                            DispatchQueue.main.async {
-                                                self.indicator.hideActivityIndicator(uiView: self.view)
-                                                self.performSegue(withIdentifier: "principleSegue", sender: nil)
-                                            }
+                        if let cpf = cpfField.text {
+                            
+                            if cpf == "" {
+                                present(Alert(title: "CPF inválido", message: "Favor informe seu cpf").getAlert(), animated: true, completion: nil)
+                            }else{
+                                if let password = passwordField.text{
+                                    if let confirmPassword = confirmPasswordField.text{
+                                        if password != confirmPassword || password == "" || confirmPassword == "" {
+                                            present(Alert(title: "Senhas inválidas", message: "Favor confirme a sua senha").getAlert(), animated: true, completion: nil)
                                         }else{
-                                            var title = ""
-                                            var msg = ""
-                                            if data != JSON.null {
-                                                switch data["error_reason"].string! {
-                                                case "EMAIL_ALREADY_REGISTERED":
-                                                    title = "Email inválido"
-                                                    msg = "Email já está cadastrado"
-                                                    break
-                                                default:
-                                                    title = "Erro"
-                                                    msg = "Um erro ocorreu, tente mais tarde"
+                                            self.indicator.showActivityIndicator(uiView: self.view)
+                                            LOGGED_USER = User(email: email, name: name,password: password, cpf: cpf, accounts: [], payments: [])
+                                            // Register the user
+                                            RestHandler.shared().POST(url: CREATE_ACCOUNT_URL, data: JSON(LOGGED_USER.getDictionary()), completion: { (data, error) in
+                                                if !error {
+                                                    UserDefaults.standard.set(data["user"].dictionaryObject, forKey: "LOGGED_USER")
+                                                    UserDefaults.standard.synchronize()
+                                                    DispatchQueue.main.async {
+                                                        self.indicator.hideActivityIndicator(uiView: self.view)
+                                                        self.performSegue(withIdentifier: "principleSegue", sender: nil)
+                                                    }
+                                                }else{
+                                                    var title = ""
+                                                    var msg = ""
+                                                    if data != JSON.null {
+                                                        switch data["error_reason"].string! {
+                                                        case "EMAIL_ALREADY_REGISTERED":
+                                                            title = "Email inválido"
+                                                            msg = "Email já está cadastrado"
+                                                            break
+                                                        case "CPF_ALREADY_REGISTERED":
+                                                            title = "CPF inválido"
+                                                            msg = "CPF já está cadastrado"
+                                                            break
+                                                        default:
+                                                            title = "Erro"
+                                                            msg = "Um erro ocorreu, tente mais tarde"
+                                                        }
+                                                    }else{
+                                                        title = "Erro"
+                                                        msg = "Um erro ocorreu, tente novamente!"
+                                                    }
+                                                    DispatchQueue.main.async {
+                                                        self.indicator.hideActivityIndicator(uiView: self.view)
+                                                        self.present(Alert(title: title   , message: msg).getAlert(), animated: true, completion: nil)
+                                                    }
                                                 }
-                                            }else{
-                                                title = "Erro"
-                                                msg = "Um erro ocorreu, tente novamente!"
-                                            }
-                                            DispatchQueue.main.async {
-                                                self.indicator.hideActivityIndicator(uiView: self.view)
-                                                self.present(Alert(title: title   , message: msg).getAlert(), animated: true, completion: nil)
-                                            }
+                                            })
                                         }
-                                    })
+                                    }
                                 }
                             }
                         }
@@ -93,6 +105,7 @@ class CadastrarViewController: UIViewController {
         emailField.setBottomBorder()
         passwordField.setBottomBorder()
         confirmPasswordField.setBottomBorder()
+        cpfField.setBottomBorder()
     }
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: false)

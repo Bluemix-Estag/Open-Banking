@@ -11,12 +11,13 @@ app.set('port', port);
 
 var db = require('./db.js');
 var chatbot = require('./bot')
+require('dotenv').load();
 
 app.post("/updateInfo", function (req, res) {
     console.log("Update method invoked..");
     var data = req.body
-
-    if (data != null && data.email != null && data.password != null) {
+    console.log(JSON.stringify(data));
+    if (data != null && data.email != null && data.cpf != null && data.password != null) {
 
         db.getUsers((err, doc) => {
 
@@ -25,16 +26,16 @@ app.post("/updateInfo", function (req, res) {
             } else {
 
                 var registeredUsers = doc.registeredUsers
-                var user = registeredUsers.filter(function (user) { return user.email == data.email.toLowerCase() })
-                if (user.length == 1) {
+                var user = registeredUsers.filter(function (user) { return user.email == data.email.toLowerCase() })[0] || null
+                if (user) {
                     var users = doc.users;
-                    if (users[user[0].id]["password"] == data.password) {
+                    if (users[user.id]["password"] == data.password) {
                         // Get user accounts Balance
                         console.log(" Checking user accounts");
-                        // getAccoutnsBalance(users[user[0].id], 0, [], function (accounts) {
-                        // users[user[0].id].accounts = accounts;
-                        res.status(200).json(users[user[0].id])
-                        // })
+                        getAccountsBalance(users[user.id], 0, [], function (accounts) {
+                            users[user.id].accounts = accounts;
+                            res.status(200).json(users[user.id])
+                        })
                     } else {
                         console.log("Wrong password")
                         res.status(403).json({ error: true, error_reason: "WRONG_PASSWORD" })
@@ -62,16 +63,16 @@ app.post('/login', (req, res) => {
             } else {
                 console.log("checking user")
                 var registeredUsers = doc.registeredUsers;
-                var user = registeredUsers.filter(function (user) { return user.email == data.email.toLowerCase() })
-                if (user.length == 1) {
+                var user = registeredUsers.filter(function (user) { return user.email == data.email.toLowerCase() })[0] || null;
+                if (user) {
                     var users = doc.users;
-                    if (users[user[0].id]["password"] == data.password) {
+                    if (users[user.id]["password"] == data.password) {
                         // Get user accounts Balance
                         console.log(" Checking user accounts");
-                        // getAccoutnsBalance(users[user[0].id], 0, [], function (accounts) {
-                        // users[user[0].id].accounts = accounts;
-                        res.status(200).json(users[user[0].id])
-                        // })
+                        getAccountsBalance(users[user.id], 0, [], function (accounts) {
+                            users[user.id].accounts = accounts;
+                            res.status(200).json(users[user.id])
+                        })
                     } else {
                         console.error("Wrong password")
                         res.status(403).json({ error: true, error_reason: "WRONG_PASSWORD" })
@@ -90,26 +91,33 @@ app.post('/login', (req, res) => {
     }
 })
 
-function getAccoutnsBalance(user, index, accounts, callback) {
+function getAccountsBalance(user, index, accounts, callback) {
     if (index >= user.accounts.length) {
         callback(accounts)
     } else {
+
+        // Check the cpf with Davi
         var options = {
-            uri: "http://demos-node-red.mybluemix.net/getBalance",
-            method: "POST",
+            uri: `https://api.us.apiconnect.ibmcloud.com/bluemix-brasil-openbanking/sb/open-banking/v1.0/accounts/30722200867/balances`,
+            method: "GET",
             headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(user.accounts[index])
+                "Content-Type": "application/json",
+                "X-IBM-Client-Id": "31649214-f2e6-4ea0-a997-1701d8cbfcfc",
+                "x-fapi-financial-id": user.accounts[index].name
+            }
         }
         request(options, function (error, response, body) {
-
+            
+            body = JSON.parse(body);
             if (!error && response.statusCode == 200) {
-                user.accounts[index].accountBalance = parseFloat(body)
+                user.accounts[index].balance = body.balance[0];
+                user.accounts[index].limit = body.limit[0];
+                user.accounts[index].current_limit = body.current_limit[0];
                 accounts.push(user.accounts[index])
-                getAccoutnsBalance(user, index + 1, accounts, callback)
+                getAccountsBalance(user, index + 1, accounts, callback)
             } else {
-                getAccoutnsBalance(user, index + 1, accounts, callback)
+                console.log("an error occured");
+                getAccountsBalance(user, index + 1, accounts, callback)
             }
         })
     }
@@ -117,28 +125,38 @@ function getAccoutnsBalance(user, index, accounts, callback) {
 
 
 
-// require('./randomData')((result) => { 
+require('./randomData')((result) => {
 
-// console.log(JSON.stringify(result,null,2))
-// var accountsName  = result.accounts.map((account) => { return account.accountName })
-// console.log(JSON.stringify(result.accounts.filter( (account, index) => {  return accountsName.lastIndexOf(account.accountName) == index } )));
+    console.log(JSON.stringify(result, null, 2))
+    // var accountsName  = result.accounts.map((account) => { return account.accountName })
+    // console.log(JSON.stringify(result.accounts.filter( (account, index) => {  return accountsName.lastIndexOf(account.accountName) == index } )));
 
 
-// })
+})
 
 app.post('/createAccount', (req, res) => {
     console.log('Create account method invoked..');
     const data = req.body;
-    if (data != null && data.email != null && data.name != null && data.password != null && data.accounts != null && data.payments != null) {
-        require('./randomData')((result) => {
-            var accountsName  = result.accounts.map((account) => { return account.accountName });
-            data.accounts = result.accounts.filter( (account, index) => {  return accountsName.lastIndexOf(account.accountName) == index } );
-            data.payments = result.payments;
-            data.accounts[0].services[0].name = "Milhas"
+    if (data != null && data.email != null && data.name != null && data.cpf != null && data.password != null && data.accounts != null && data.payments != null) {
+        //  Fixed Accounts
+        data.accounts = [
+            {
+                "name": "BANK01"
+            },
+            {
+                "name": "BANK02"
+            },
+            {
+                "name": "CORRETORA01"
+            }
+        ]
+        getAccountsBalance(data, 0, [], (accounts) => {
+            data.accounts = accounts;
+
             db.addUser(data, (response) => {
                 res.status(response.statusCode).json(response.data);
             });
-        })
+        });
     } else {
         console.log("Bad request");
         res.status(400).json({ error: true, error_reason: "BAD_REQUEST" });
@@ -165,13 +183,13 @@ const processChatMessage = (req, res) => {
             if (data.output.action != null) {
                 switch (data.output.action) {
                     case "payBill":
-                    console.log('Paying user method invoked..');
+                        console.log('Paying user method invoked..');
                         payBillUserAccount(data, res);
-                     break;
+                        break;
 
-                     default:
-                     
-                     res.status(200).json(data);
+                    default:
+
+                        res.status(200).json(data);
                 }
             } else {
                 res.status(200).json(data);
@@ -184,7 +202,7 @@ const payBillUserAccount = (data, res) => {
     var user = data.context.user;
     db.getUserByEmail(user.email, (error, user) => {
         if (error) {
-            res.status( error.statusCode ).json({ error: true, error_reason: error.error_reason });
+            res.status(error.statusCode).json({ error: true, error_reason: error.error_reason });
         } else {
             // Pay the bill for the user !
             // You can call an API of the corresponding bank.
@@ -194,17 +212,17 @@ const payBillUserAccount = (data, res) => {
             user.payments.shift();
             // Here the user info updated
             // Update on Cloudant
-            db.updateUser(user,(error, updatedUser) => {
+            db.updateUser(user, (error, updatedUser) => {
                 if (error) {
-                    res.status(error.statusCode).json({error: true, error_reason: error.error_reason});
-                }else{
+                    res.status(error.statusCode).json({ error: true, error_reason: error.error_reason });
+                } else {
                     // User updated, now send to watson conversation to notify the user about the new balance! 
                     data.context.user = updatedUser;
                     data.context.paid = true;
                     var req = {
                         body: data
                     }
-                    processChatMessage(req,res);
+                    processChatMessage(req, res);
                 }
             })
         }

@@ -55,8 +55,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
@@ -65,6 +63,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.LOGGED_USER.setValue(userDic: obUser)
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.addTarget(self, action: #selector(refreshUserDetails), for: UIControlEvents.valueChanged)
+        self.tableView.refreshControl = refreshControl
+        
         
         UIApplication.shared.beginIgnoringInteractionEvents()
         let body: [String: Any] = [
@@ -102,13 +107,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             
         }))
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl.addTarget(self, action: #selector(refreshUserDetails), for: UIControlEvents.valueChanged)
-        self.tableView.refreshControl = refreshControl
     }
     
     override func didReceiveMemoryWarning() {
@@ -139,7 +137,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             nf.numberStyle = .decimal
             nf.locale = Locale(identifier: "pt_BR")
             cell.bankImage.image = #imageLiteral(resourceName: "safebox")
-            cell.bankName.text = LOGGED_USER.accounts[indexPath.row]["accountName"] as! String
+            cell.bankName.text = LOGGED_USER.accounts[indexPath.row]["name"] as! String
             let balanceNumber = LOGGED_USER.accounts[indexPath.row]["balance"]
             cell.bankBalance.text = "R$ "+nf.string(from: balanceNumber as! NSNumber)!
             return cell
