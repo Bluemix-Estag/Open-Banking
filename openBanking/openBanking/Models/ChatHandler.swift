@@ -11,7 +11,7 @@ import SwiftyJSON
 
 class ChatHandler {
     
-    private let CONVERSATION_URL = RestHandler.shared().ENDPOINT_URL + "/conversation"
+    private let CONVERSATION_URL = RestHandler.shared.ENDPOINT_URL + "/conversation"
     var CONTEXT: [String: Any] = [:]
     
     // MARK: - Properties

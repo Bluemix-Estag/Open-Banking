@@ -34,9 +34,52 @@ extension UITextField {
     }
 }
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController,RestHandlerDelegate {
     
-    let LOGGIN_URL = RestHandler.shared().ENDPOINT_URL + "/login"
+    
+    func completion(result: JSON, error: Bool) {
+        
+        if !error {
+            UserDefaults.standard.set( result.dictionaryObject , forKey: "LOGGED_USER")
+            UserDefaults.standard.synchronize()
+            DispatchQueue.main.async {
+                self.indicator.hideActivityIndicator(uiView: self.view)
+                self.performSegue(withIdentifier: "loginToMainSegue", sender: nil)
+            }
+        }else{
+            var errorMessage = ""
+            var title = ""
+            if result != nil {
+                switch result["error_reason"].string! {
+                case "EMAIL_NOT_FOUND" :
+                    title = "Email inválido"
+                    errorMessage = "Email não encontrado."
+                    break
+                case "WRONG_PASSWORD":
+                    title = "Senha inválida"
+                    errorMessage = "Senha incorreta, tente novamente"
+                    break
+                default:
+                    title = "Erro"
+                    errorMessage = "Um erro ocorreu, tente novamente!"
+                }
+            }else{
+                title = "Erro"
+                errorMessage = "Um erro ocorreu, tente novamente!"
+            }
+            
+            DispatchQueue.main.async {
+                self.indicator.hideActivityIndicator(uiView: self.view)
+                self.present(Alert(title: title , message: errorMessage).getAlert(), animated: true, completion: nil)
+                UserDefaults.standard.removeObject(forKey: "LOGGED_USER")
+            }
+        }
+        
+        
+    }
+    
+    
+    let LOGGIN_URL = RestHandler.shared.ENDPOINT_URL + "/login"
     let indicator = Indicator()
     
     
@@ -57,43 +100,8 @@ class LoginViewController: UIViewController {
                     }else{
                         let userDic = ["email": email, "password": password]
                         self.indicator.showActivityIndicator(uiView: self.view)
-                        RestHandler.shared().POST(url: self.LOGGIN_URL, data: JSON(userDic), completion: { (data, error) in
-                            if !error {
-                                UserDefaults.standard.set( data.dictionaryObject , forKey: "LOGGED_USER")
-                                UserDefaults.standard.synchronize()
-                                DispatchQueue.main.async {
-                                    self.indicator.hideActivityIndicator(uiView: self.view)
-                                    self.performSegue(withIdentifier: "loginToMainSegue", sender: nil)
-                                }
-                            }else{
-                                var errorMessage = ""
-                                var title = ""
-                                if data != nil {
-                                    switch data["error_reason"].string! {
-                                    case "EMAIL_NOT_FOUND" :
-                                        title = "Email inválido"
-                                        errorMessage = "Email não encontrado."
-                                        break
-                                    case "WRONG_PASSWORD":
-                                        title = "Senha inválida"
-                                        errorMessage = "Senha incorreta, tente novamente"
-                                        break
-                                    default:
-                                        title = "Erro"
-                                        errorMessage = "Um erro ocorreu, tente novamente!"
-                                    }
-                                }else{
-                                    title = "Erro"
-                                    errorMessage = "Um erro ocorreu, tente novamente!"
-                                }
-                               
-                                DispatchQueue.main.async {
-                                    self.indicator.hideActivityIndicator(uiView: self.view)
-                                    self.present(Alert(title: title , message: errorMessage).getAlert(), animated: true, completion: nil)
-                                    UserDefaults.standard.removeObject(forKey: "LOGGED_USER")
-                                }
-                            }
-                        })
+                        RestHandler.shared.delegate = self
+                        RestHandler.shared.POST(url: self.LOGGIN_URL, data: JSON(userDic))
                     }
                 }
             }
@@ -127,6 +135,14 @@ class LoginViewController: UIViewController {
     }
     
 
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        RestHandler.shared.delegate = nil // ele faz magicamente :) 
+        
+    }
+    
+    
     /*
     // MARK: - Navigation
 

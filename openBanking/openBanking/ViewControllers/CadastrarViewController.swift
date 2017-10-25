@@ -9,14 +9,47 @@
 import UIKit
 import SwiftyJSON
 
-
-
-
-
-
-
-class CadastrarViewController: UIViewController {
-    let CREATE_ACCOUNT_URL = RestHandler.shared().ENDPOINT_URL + "/createAccount"
+class CadastrarViewController: UIViewController, RestHandlerDelegate {
+    
+    
+    
+    func completion(result: JSON, error: Bool) {
+        if !error {
+            UserDefaults.standard.set(result["user"].dictionaryObject, forKey: "LOGGED_USER")
+            UserDefaults.standard.synchronize()
+            DispatchQueue.main.async {
+                self.indicator.hideActivityIndicator(uiView: self.view)
+                self.performSegue(withIdentifier: "principleSegue", sender: nil)
+            }
+        }else{
+            var title = ""
+            var msg = ""
+            if result != JSON.null {
+                switch result["error_reason"].string! {
+                case "EMAIL_ALREADY_REGISTERED":
+                    title = "Email inválido"
+                    msg = "Email já está cadastrado"
+                    break
+                case "CPF_ALREADY_REGISTERED":
+                    title = "CPF inválido"
+                    msg = "CPF já está cadastrado"
+                    break
+                default:
+                    title = "Erro"
+                    msg = "Um erro ocorreu, tente mais tarde"
+                }
+            }else{
+                title = "Erro"
+                msg = "Um erro ocorreu, tente novamente!"
+            }
+            DispatchQueue.main.async {
+                self.indicator.hideActivityIndicator(uiView: self.view)
+                self.present(Alert(title: title   , message: msg).getAlert(), animated: true, completion: nil)
+            }
+        }
+    }
+    
+    let CREATE_ACCOUNT_URL = RestHandler.shared.ENDPOINT_URL + "/createAccount"
     var LOGGED_USER: User = User()
     let indicator = Indicator()
     
@@ -49,41 +82,8 @@ class CadastrarViewController: UIViewController {
                                             self.indicator.showActivityIndicator(uiView: self.view)
                                             LOGGED_USER = User(email: email, name: name,password: password, cpf: cpf, accounts: [], payments: [])
                                             // Register the user
-                                            RestHandler.shared().POST(url: CREATE_ACCOUNT_URL, data: JSON(LOGGED_USER.getDictionary()), completion: { (data, error) in
-                                                if !error {
-                                                    UserDefaults.standard.set(data["user"].dictionaryObject, forKey: "LOGGED_USER")
-                                                    UserDefaults.standard.synchronize()
-                                                    DispatchQueue.main.async {
-                                                        self.indicator.hideActivityIndicator(uiView: self.view)
-                                                        self.performSegue(withIdentifier: "principleSegue", sender: nil)
-                                                    }
-                                                }else{
-                                                    var title = ""
-                                                    var msg = ""
-                                                    if data != JSON.null {
-                                                        switch data["error_reason"].string! {
-                                                        case "EMAIL_ALREADY_REGISTERED":
-                                                            title = "Email inválido"
-                                                            msg = "Email já está cadastrado"
-                                                            break
-                                                        case "CPF_ALREADY_REGISTERED":
-                                                            title = "CPF inválido"
-                                                            msg = "CPF já está cadastrado"
-                                                            break
-                                                        default:
-                                                            title = "Erro"
-                                                            msg = "Um erro ocorreu, tente mais tarde"
-                                                        }
-                                                    }else{
-                                                        title = "Erro"
-                                                        msg = "Um erro ocorreu, tente novamente!"
-                                                    }
-                                                    DispatchQueue.main.async {
-                                                        self.indicator.hideActivityIndicator(uiView: self.view)
-                                                        self.present(Alert(title: title   , message: msg).getAlert(), animated: true, completion: nil)
-                                                    }
-                                                }
-                                            })
+                                            RestHandler.shared.delegate = self
+                                            RestHandler.shared.POST(url: CREATE_ACCOUNT_URL, data :JSON(LOGGED_USER.getDictionary()))
                                         }
                                     }
                                 }
@@ -117,6 +117,10 @@ class CadastrarViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        RestHandler.shared.delegate = nil // ele faz magicamente :)
     }
     
 }

@@ -13,9 +13,29 @@ import SwiftyJSON
 
 
 
-class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,RestHandlerDelegate  {
     
-    let UPDATE_USER_INFO_URL = RestHandler.shared().ENDPOINT_URL + "/updateInfo"
+    // Completion method invoked when rest request is done!
+    func completion(result: JSON, error: Bool) {
+        if error {
+            DispatchQueue.main.async(execute: {
+                self.present(Alert(title: "Error", message: "Erro ao atualizar os dados, tente novamente.").getAlert(),animated: true, completion: nil)
+                self.refreshControl.endRefreshing()
+                UIApplication.shared.endIgnoringInteractionEvents()
+            })
+        }else{
+            self.LOGGED_USER.setValue(userDic: result.dictionaryObject!)
+            DispatchQueue.main.async(execute: {
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
+                UIApplication.shared.endIgnoringInteractionEvents()
+            })
+        }
+    }
+    
+    
+    let UPDATE_USER_INFO_URL = RestHandler.shared.ENDPOINT_URL + "/updateInfo"
+    
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var homeTabBarItem: UITabBarItem!
@@ -27,24 +47,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @objc func refreshUserDetails() {
         UIApplication.shared.beginIgnoringInteractionEvents()
-        RestHandler.shared().POST(url: UPDATE_USER_INFO_URL, data: JSON(LOGGED_USER.getDictionary())) { (data, error) in
-            print(data)
-            if error {
-                DispatchQueue.main.async(execute: {
-                    self.present(Alert(title: "Error", message: "Erro ao atualizar os dados, tente novamente.").getAlert(),animated: true, completion: nil)
-                    self.refreshControl.endRefreshing()
-                    UIApplication.shared.endIgnoringInteractionEvents()
-                })
-            }else{
-                self.LOGGED_USER.setValue(userDic: data.dictionaryObject!)
-                DispatchQueue.main.async(execute: {
-                    self.tableView.reloadData()
-                    self.refreshControl.endRefreshing()
-                    UIApplication.shared.endIgnoringInteractionEvents()
-                })
-            }
-            
-        }
+        RestHandler.shared.delegate = self
+        RestHandler.shared.POST(url: UPDATE_USER_INFO_URL, data: JSON(LOGGED_USER.getDictionary()))
     }
     
     @IBAction func logout(_ sender: Any) {
@@ -58,6 +62,33 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
+        if checkUser() {
+            restoreUser()
+        }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.addTarget(self, action: #selector(refreshUserDetails), for: UIControlEvents.valueChanged)
+        self.tableView.refreshControl = refreshControl
+        
+        if checkUser() {
+            restoreUser()
+            callWatsonConversation()
+        }
+    }
+    
+    func checkUser() -> Bool {
+        if let user = UserDefaults.standard.value(forKeyPath: "LOGGED_USER"){
+            if user is [String: Any] {
+                return true
+            }
+        }
+        return false
+    }
+    
+    func restoreUser() -> Void {
         if let user = UserDefaults.standard.value(forKeyPath: "LOGGED_USER"){
             if let obUser = user as? [String: Any] {
                 self.LOGGED_USER.setValue(userDic: obUser)
@@ -65,10 +96,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl.addTarget(self, action: #selector(refreshUserDetails), for: UIControlEvents.valueChanged)
-        self.tableView.refreshControl = refreshControl
+    
+    func callWatsonConversation() -> Void {
         
         
         UIApplication.shared.beginIgnoringInteractionEvents()
@@ -83,14 +112,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                     if let action = result["output"]["action"].string {
                         if action == "notifyUser" {
                             var messages: [String] = []
-                            if var pendingMessages = UserDefaults.standard.object(forKey: "pendingMessages") as? Array<String>{
+                            if let pendingMessages = UserDefaults.standard.object(forKey: "pendingMessages") as? Array<String>{
                                 messages = pendingMessages
                             }
                             if let message = result["output"]["text"][0].string {
                                 messages.append(message)
                                 UserDefaults.standard.setValue( messages , forKey: "pendingMesssages")
                                 UserDefaults.standard.synchronize()
-                                
                                 if let chatVC = self.tabBarController?.viewControllers![1] as? ChatViewController {
                                     chatVC.chatBarTab.badgeValue = String(messages.count)
                                 }
@@ -107,9 +135,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             
         }))
+        
     }
     
-  
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -132,7 +161,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             nf.numberStyle = .decimal
             nf.locale = Locale(identifier: "pt_BR")
             cell.bankImage.image = #imageLiteral(resourceName: "safebox")
-            cell.bankName.text = LOGGED_USER.accounts[indexPath.row]["name"] as! String
+            cell.bankName.text = (LOGGED_USER.accounts[indexPath.row]["name"] as! String)
             let balanceNumber = LOGGED_USER.accounts[indexPath.row]["balance"]
             cell.bankBalance.text = "R$ "+nf.string(from: balanceNumber as! NSNumber)!
             return cell
@@ -148,3 +177,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        RestHandler.shared.delegate = nil // ele faz magicamente :)
+        
+    }
+}

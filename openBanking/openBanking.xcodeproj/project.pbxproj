@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D1D58531FA1002F0016C5C4 /* RestHandlerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1D58521FA1002F0016C5C4 /* RestHandlerDelegate.swift */; };
 		8D2804AB1F8290C300BB47BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D2804AA1F8290C300BB47BF /* Assets.xcassets */; };
 		8D2B2EFF1F8485FB000B1E59 /* ChatTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2B2EFE1F8485FB000B1E59 /* ChatTableView.swift */; };
 		8D2B2F011F8489FA000B1E59 /* WatsonChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2B2F001F8489FA000B1E59 /* WatsonChatCell.swift */; };
@@ -36,6 +37,7 @@
 
 /* Begin PBXFileReference section */
 		2EF7B4AE3E2CB4820DB0F11A /* Pods_openBanking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_openBanking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1D58521FA1002F0016C5C4 /* RestHandlerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestHandlerDelegate.swift; sourceTree = "<group>"; };
 		8D2804AA1F8290C300BB47BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D2B2EFE1F8485FB000B1E59 /* ChatTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableView.swift; sourceTree = "<group>"; };
 		8D2B2F001F8489FA000B1E59 /* WatsonChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatsonChatCell.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				8DCB5B1E1F883E5F00C0A770 /* BankCell.swift */,
 				8DCB5B201F88563000C0A770 /* GradientTabBar.swift */,
 				8D9BFB091F8925590002D60A /* BlankBankCell.swift */,
+				8D1D58521FA1002F0016C5C4 /* RestHandlerDelegate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				8D9BFB0A1F8925590002D60A /* BlankBankCell.swift in Sources */,
 				8D2B2EFF1F8485FB000B1E59 /* ChatTableView.swift in Sources */,
 				8DE4C8BB1F856B440086AA68 /* UserChatCell.swift in Sources */,
+				8D1D58531FA1002F0016C5C4 /* RestHandlerDelegate.swift in Sources */,
 				8D9701251F8141F60011EADF /* MainViewController.swift in Sources */,
 				8D7CA3DB1F83CDB700C5F3B7 /* ChatHandler.swift in Sources */,
 				8DCB5B211F88563000C0A770 /* GradientTabBar.swift in Sources */,
