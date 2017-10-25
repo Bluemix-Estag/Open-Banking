@@ -28,24 +28,24 @@ class CadastrarViewController: UIViewController {
     @IBOutlet weak var cpfField: UITextField!
     
     @IBAction func register(_ sender: Any) {
-        if let email = emailField.text {
+        if let email = emailField.text?.trimmingCharacters(in: .whitespaces) {
             if email == ""{
                 present(Alert(title: "Email inválido", message: "Favor informe seu email").getAlert(), animated: true, completion: nil)
             }else{
-                if let name = nameField.text {
+                if let name = nameField.text?.trimmingCharacters(in: .whitespaces) {
                     if name == "" {
                         present(Alert(title: "Nome inválido", message: "Favor informe seu nome").getAlert(), animated: true, completion: nil)
                     }else{
-                        if let cpf = cpfField.text {
-                            
+                        if let cpf = cpfField.text?.trimmingCharacters(in: .whitespaces) {
                             if cpf == "" {
                                 present(Alert(title: "CPF inválido", message: "Favor informe seu cpf").getAlert(), animated: true, completion: nil)
                             }else{
-                                if let password = passwordField.text{
-                                    if let confirmPassword = confirmPasswordField.text{
+                                if let password = passwordField.text?.trimmingCharacters(in: .whitespaces){
+                                    if let confirmPassword = confirmPasswordField.text?.trimmingCharacters(in: .whitespaces){
                                         if password != confirmPassword || password == "" || confirmPassword == "" {
                                             present(Alert(title: "Senhas inválidas", message: "Favor confirme a sua senha").getAlert(), animated: true, completion: nil)
                                         }else{
+                                            // Show the indicator on the screen
                                             self.indicator.showActivityIndicator(uiView: self.view)
                                             LOGGED_USER = User(email: email, name: name,password: password, cpf: cpf, accounts: [], payments: [])
                                             // Register the user

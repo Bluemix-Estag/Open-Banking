@@ -683,7 +683,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Pmr-hv-ZRY"/>
                                 </constraints>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 <userDefinedRuntimeAttributes>
