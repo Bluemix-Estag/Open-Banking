@@ -166,6 +166,7 @@ const addUser = (user, callback) => {
     }
     getUsers((err, doc) => {
         if (err) {
+            console.log('Error getting users in addUser method');
             response.statusCode = 500;
             response.data = {
                 error: true,

@@ -34,7 +34,10 @@ app.post("/updateInfo", function (req, res) {
                         console.log(" Checking user accounts");
                         getAccountsBalance(users[user.id], 0, [], function (accounts) {
                             users[user.id].accounts = accounts;
-                            res.status(200).json(users[user.id])
+                            getPaymentsInfo(users[user.id], 0, [], (payments) => {
+                                users[user.id].payments = payments;
+                                res.status(200).json(users[user.id])
+                            })
                         })
                     } else {
                         console.log("Wrong password")
@@ -50,6 +53,7 @@ app.post("/updateInfo", function (req, res) {
         res.status(400).json({ error: true, error_reason: "BAD_REQUEST" })
     }
 })
+
 
 app.post('/login', (req, res) => {
     console.log('Login method invoked');
@@ -69,9 +73,12 @@ app.post('/login', (req, res) => {
                     if (users[user.id]["password"] == data.password) {
                         // Get user accounts Balance
                         console.log(" Checking user accounts");
-                        getAccountsBalance(users[user.id], 0, [], function (accounts) {
+                        getAccountsBalance(users[user.id], 0, [], (accounts) => {
                             users[user.id].accounts = accounts;
-                            res.status(200).json(users[user.id])
+                            getPaymentsInfo(users[user.id], 0, [], (payments) => {
+                                users[user.id].payments = payments;
+                                res.status(200).json(users[user.id])
+                            })
                         })
                     } else {
                         console.error("Wrong password")
@@ -91,6 +98,37 @@ app.post('/login', (req, res) => {
     }
 })
 
+const getPaymentsInfo = (user, index, payments, callback) => {
+    if (index == user.accounts.length) {
+        callback(payments);
+    } else {
+        // Check the cpf with Davi
+        var options = {
+            uri: `https://api.us.apiconnect.ibmcloud.com/bluemix-brasil-openbanking/sb/open-banking/v1.0/overdue-payments/query`,
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "X-IBM-Client-Id": "31649214-f2e6-4ea0-a997-1701d8cbfcfc",
+                "x-fapi-financial-id": user.accounts[index].name
+            }
+        }
+        request(options, function (error, response, body) {
+
+            body = JSON.parse(body);
+
+            if (!error && response.statusCode == 200) {
+
+                body.map((pay) => { payments.push(pay) });
+
+                getPaymentsInfo(user, index + 1, payments, callback)
+            } else {
+                console.log("an error occured");
+                getPaymentsInfo(user, index + 1, payments, callback)
+            }
+        })
+    }
+}
+
 function getAccountsBalance(user, index, accounts, callback) {
     if (index >= user.accounts.length) {
         callback(accounts)
@@ -107,7 +145,7 @@ function getAccountsBalance(user, index, accounts, callback) {
             }
         }
         request(options, function (error, response, body) {
-            
+
             body = JSON.parse(body);
             if (!error && response.statusCode == 200) {
                 user.accounts[index].balance = body.balance[0];
@@ -123,16 +161,6 @@ function getAccountsBalance(user, index, accounts, callback) {
     }
 }
 
-
-
-require('./randomData')((result) => {
-
-    console.log(JSON.stringify(result, null, 2))
-    // var accountsName  = result.accounts.map((account) => { return account.accountName })
-    // console.log(JSON.stringify(result.accounts.filter( (account, index) => {  return accountsName.lastIndexOf(account.accountName) == index } )));
-
-
-})
 
 app.post('/createAccount', (req, res) => {
     console.log('Create account method invoked..');
@@ -153,9 +181,14 @@ app.post('/createAccount', (req, res) => {
         getAccountsBalance(data, 0, [], (accounts) => {
             data.accounts = accounts;
 
-            db.addUser(data, (response) => {
-                res.status(response.statusCode).json(response.data);
-            });
+            getPaymentsInfo(data, 0, [], (payments) => {
+                data.payments = payments;
+                db.addUser(data, (response) => {
+                    res.status(response.statusCode).json(response.data);
+                });
+            })
+
+
         });
     } else {
         console.log("Bad request");
