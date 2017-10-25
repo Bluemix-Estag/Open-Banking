@@ -109,16 +109,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }))
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+  
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if LOGGED_USER.accounts.count == 0 {
@@ -129,8 +124,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if LOGGED_USER.accounts.count > 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "bankCell", for: indexPath) as! BankCell
             let nf = NumberFormatter()
@@ -153,16 +148,3 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
     }
-    
-    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    //        if segue.identifier == "bankAccountDetailSegue" {
-    //            let destinationVC = segue.destination as! AccountDetailsViewController
-    //            destinationVC.accountIndex = sender as! Int
-    //
-    //
-    //        }
-    //    }
-    
-    
-    
-}

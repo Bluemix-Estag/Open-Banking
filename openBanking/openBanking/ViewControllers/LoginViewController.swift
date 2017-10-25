@@ -46,12 +46,12 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func login(_ sender: Any) {
-        if let email = emailField.text {
+        if let email = emailField.text?.trimmingCharacters(in: .whitespaces) {
             if email == ""{
                 // Error
                 present(Alert(title: "Email inválido", message: "Favor informe seu email").getAlert(), animated: true, completion: nil)
             }else{
-                if let password = passwordField.text {
+                if let password = passwordField.text?.trimmingCharacters(in: .whitespaces) {
                     if password == "" {
                         present(Alert(title: "Senha inválido", message: "Favor informe sua senha").getAlert(), animated: true, completion: nil)
                     }else{
