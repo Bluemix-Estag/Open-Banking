@@ -113,13 +113,9 @@ const getPaymentsInfo = (user, index, payments, callback) => {
             }
         }
         request(options, function (error, response, body) {
-
             body = JSON.parse(body);
-
             if (!error && response.statusCode == 200) {
-
                 body.map((pay) => { payments.push(pay) });
-
                 getPaymentsInfo(user, index + 1, payments, callback)
             } else {
                 console.log("an error occured");
@@ -180,7 +176,6 @@ app.post('/createAccount', (req, res) => {
         ]
         getAccountsBalance(data, 0, [], (accounts) => {
             data.accounts = accounts;
-
             getPaymentsInfo(data, 0, [], (payments) => {
                 data.payments = payments;
                 db.addUser(data, (response) => {
@@ -209,9 +204,7 @@ const processChatMessage = (req, res) => {
             console.log("Error in sending message: ", err);
             res.status(err.code || 500).json(err);
         } else {
-            console.log('Got response: ', JSON.stringify(data, null, 2));
-
-
+            console.log('Got response: ', JSON.stringify(data, null, 2))
             // Check for any action required
             if (data.output.action != null) {
                 switch (data.output.action) {
@@ -219,9 +212,7 @@ const processChatMessage = (req, res) => {
                         console.log('Paying user method invoked..');
                         payBillUserAccount(data, res);
                         break;
-
                     default:
-
                         res.status(200).json(data);
                 }
             } else {
@@ -233,34 +224,81 @@ const processChatMessage = (req, res) => {
 
 const payBillUserAccount = (data, res) => {
     var user = data.context.user;
+
     db.getUserByEmail(user.email, (error, user) => {
         if (error) {
             res.status(error.statusCode).json({ error: true, error_reason: error.error_reason });
         } else {
-            // Pay the bill for the user !
-            // You can call an API of the corresponding bank.
-            user.accounts[0].oldBalance = user.accounts[0].balance;
-            user.accounts[0].balance = user.accounts[0].balance - user.payments[0].bill;
-            user.accounts[0].services[0].balance = parseFloat(user.accounts[0].services[0].balance + parseInt(user.payments[0].bill)).toFixed(2);
-            user.payments.shift();
-            // Here the user info updated
-            // Update on Cloudant
-            db.updateUser(user, (error, updatedUser) => {
-                if (error) {
-                    res.status(error.statusCode).json({ error: true, error_reason: error.error_reason });
+
+
+
+            var options = {
+                uri: `https://api.us.apiconnect.ibmcloud.com/bluemix-brasil-openbanking/sb/open-banking/v1.0/rewards/30722200867/balance`,
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-IBM-Client-Id": "31649214-f2e6-4ea0-a997-1701d8cbfcfc",
+                    "x-fapi-financial-id": user.accounts[0].name
+                }
+            }
+            request(options, function (error, response, body) {
+
+                body = JSON.parse(body);
+                if (!error && response.statusCode == 200) {
+                    user.accounts[0].balance = body.checking_account_balance[0];
+                    user.accounts[0].bonus = body.current_balance[0];
+                    db.updateUser(user, (error, updatedUser) => {
+                        if (error) {
+                            res.status(error.statusCode).json({ error: true, error_reason: error.error_reason });
+                        } else {
+                            // User updated, now send to watson conversation to notify the user about the new balance! 
+                            data.context.user = updatedUser;
+                            data.context.paid = true;
+                            var req = {
+                                body: data
+                            }
+                            processChatMessage(req, res);
+                        }
+                    })
+
                 } else {
-                    // User updated, now send to watson conversation to notify the user about the new balance! 
-                    data.context.user = updatedUser;
-                    data.context.paid = true;
-                    var req = {
-                        body: data
-                    }
-                    processChatMessage(req, res);
+                    res.status(500).json({ error: true, error_reason: "INTERNAL_SERVER_ERROR" });
                 }
             })
         }
-    })
-};
+    });
+}
+
+// const payBillUserAccount = (data, res) => {
+//     var user = data.context.user;
+//     db.getUserByEmail(user.email, (error, user) => {
+//         if (error) {
+//             res.status(error.statusCode).json({ error: true, error_reason: error.error_reason });
+//         } else {
+//             // Pay the bill for the user !
+//             // You can call an API of the corresponding bank.
+//             user.accounts[0].oldBalance = user.accounts[0].balance;
+//             user.accounts[0].balance = user.accounts[0].balance - user.payments[0].bill;
+//             user.accounts[0].services[0].balance = parseFloat(user.accounts[0].services[0].balance + parseInt(user.payments[0].bill)).toFixed(2);
+//             user.payments.shift();
+//             // Here the user info updated
+//             // Update on Cloudant
+//             db.updateUser(user, (error, updatedUser) => {
+//                 if (error) {
+//                     res.status(error.statusCode).json({ error: true, error_reason: error.error_reason });
+//                 } else {
+//                     // User updated, now send to watson conversation to notify the user about the new balance! 
+//                     data.context.user = updatedUser;
+//                     data.context.paid = true;
+//                     var req = {
+//                         body: data
+//                     }
+//                     processChatMessage(req, res);
+//                 }
+//             })
+//         }
+//     })
+// };
 
 
 app.listen(port, function () {

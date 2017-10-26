@@ -117,10 +117,11 @@ const getUserByEmail = (email,callback) => {
             callback({"error": true, "error_reason": "INTERNAL_SERVER_ERROR" , statusCode: 500 }, null);
         }else{
             var registeredUsers = doc.registeredUsers;
-            var user = registeredUsers.filter(function (user) { return user.email == email.toLowerCase() })
-            if ( user.length == 1){
+            var user = registeredUsers.filter(function (user) { return user.email == email.toLowerCase() })[0] || null;
+            if ( user){
+                console.log('Getting user by email');
                 var users = doc.users;
-                callback(null, users[user[0].id]);
+                callback(null, users[user.id]);
             }else{
                 callback({ error: true, error_reason: "EMAIL_NOT_FOUND" , statusCode: 404 } , null );
             }

@@ -280,7 +280,11 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="lkS-ru-H02" firstAttribute="leading" secondItem="YGB-ij-bAv" secondAttribute="leadingMargin" id="4fo-Ej-8en"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="feq-nU-sVn" secondAttribute="trailing" constant="40" id="WuA-kv-akI"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="feq-nU-sVn" secondAttribute="trailing" constant="40" id="WuA-kv-akI">
+                                                    <string key="identifier" base64-UTF8="YES">
+CQ
+</string>
+                                                </constraint>
                                                 <constraint firstAttribute="bottomMargin" secondItem="lkS-ru-H02" secondAttribute="bottom" id="XAm-DM-bIt"/>
                                                 <constraint firstItem="feq-nU-sVn" firstAttribute="top" secondItem="YGB-ij-bAv" secondAttribute="top" constant="8" id="cIV-FS-hQp"/>
                                                 <constraint firstItem="feq-nU-sVn" firstAttribute="leading" secondItem="YGB-ij-bAv" secondAttribute="leading" constant="25" id="l6d-Ft-E0O"/>
@@ -503,7 +507,7 @@
                                                     <rect key="frame" x="32" y="8" width="311" height="73"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bank Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6C-oD-fBp">
-                                                            <rect key="frame" x="112" y="32" width="87.5" height="9"/>
+                                                            <rect key="frame" x="112" y="32" width="88" height="9"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -671,7 +675,7 @@
                                 </constraints>
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
                                         <color key="value" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

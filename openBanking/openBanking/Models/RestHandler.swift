@@ -21,8 +21,8 @@ class RestHandler {
     private init(){
         
     }
-//     let ENDPOINT_URL = "https://openbanking.mybluemix.net"
-    let ENDPOINT_URL = "https://openbanking.localtunnel.me"
+     let ENDPOINT_URL = "https://openbanking.mybluemix.net"
+//    let ENDPOINT_URL = "https://openbanking.localtunnel.me"
     
     static let shared = RestHandler()
     
@@ -33,9 +33,9 @@ class RestHandler {
         request.httpBody = try? data.rawData()
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
          task = URLSession.shared.dataTask(with: request) { (data, urlResponse, error) in
-//            print("POST DATA: \(JSON(data))")
-//            print("POST response: \(urlResponse)")
-//            print("POST error: \(error)")
+            print("POST DATA: \(JSON(data))")
+            print("POST response: \(urlResponse)")
+            print("POST error: \(error)")
             if let statusCode = (urlResponse as? HTTPURLResponse)?.statusCode {
                 if error == nil && statusCode == 200 {
                     self.delegate?.completion(result: JSON(data!), error: false)

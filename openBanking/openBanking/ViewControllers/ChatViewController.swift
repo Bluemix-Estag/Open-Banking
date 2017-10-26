@@ -75,14 +75,7 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.delegate = self
         self.tableView.dataSource = self
         dateFormatter.dateFormat = "hh:mm"
-        if let pendingMessages = UserDefaults.standard.value(forKey: "pendingMesssages") as? Array<String> {
-            for msg in pendingMessages {
-                self.messages.append(["watson": msg, "date": self.dateFormatter.string(from: Date())])
-            }
-            UserDefaults.standard.removeObject(forKey: "pendingMesssages")
-            self.chatBarTab.badgeValue = nil
-        }
-        
+     
     }
     
     
@@ -98,15 +91,30 @@ class ChatViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        if let pendingMessages = UserDefaults.standard.value(forKey: "pendingMesssages") as? Array<String> {
+            for msg in pendingMessages {
+                self.messages.append(["watson": msg, "date": self.dateFormatter.string(from: Date())])
+            }
+            UserDefaults.standard.removeObject(forKey: "pendingMesssages")
+            self.chatBarTab.badgeValue = nil
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)) , name: .UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: .UIKeyboardWillHide, object: nil)
         print(messages)
-        //        self.tableView.reloadData()
-        
         self.customReloadTable()
         
     }
     
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        // Remove observers!
+        
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillShow , object: nil)
+        NotificationCenter.default.removeObserver(self, name: .UIKeyboardWillHide , object: nil)
+
+    }
     @objc fileprivate  func keyboardWillShow(notification: NSNotification) {
         
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {

@@ -94,12 +94,10 @@ class CadastrarViewController: UIViewController, RestHandlerDelegate {
             }
         }
     }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
     }
-    
     override func viewDidLayoutSubviews() {
         nameField.setBottomBorder()
         emailField.setBottomBorder()
