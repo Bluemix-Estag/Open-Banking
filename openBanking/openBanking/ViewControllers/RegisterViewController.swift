@@ -1,17 +1,21 @@
 //
-//  CadastrarViewController.swift
+//  RegisterViewController.swift
 //  openBanking
 //
-//  Created by Rabah Zeineddine on 01/10/17.
+//  Created by Rabah Zeineddine on 31/10/17.
 //  Copyright © 2017 Rabah Zeineddine. All rights reserved.
 //
 
 import UIKit
 import SwiftyJSON
 
-class CadastrarViewController: UIViewController, RestHandlerDelegate {
-    
-    
+class RegisterViewController: UIViewController, RestHandlerDelegate {
+
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var emailField: UITextField!
+    @IBOutlet weak var cpfField: UITextField!
+    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var confirmPasswordField: UITextField!
     
     func completion(result: JSON, error: Bool) {
         if !error {
@@ -54,11 +58,8 @@ class CadastrarViewController: UIViewController, RestHandlerDelegate {
     let indicator = Indicator()
     
     
-    @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var emailField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
-    @IBOutlet weak var confirmPasswordField: UITextField!
-    @IBOutlet weak var cpfField: UITextField!
+    
+    
     
     @IBAction func register(_ sender: Any) {
         if let email = emailField.text?.trimmingCharacters(in: .whitespaces) {
@@ -94,31 +95,41 @@ class CadastrarViewController: UIViewController, RestHandlerDelegate {
             }
         }
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        // Do any additional setup after loading the view.
     }
-    override func viewDidLayoutSubviews() {
-        nameField.setBottomBorder()
-        emailField.setBottomBorder()
-        passwordField.setBottomBorder()
-        confirmPasswordField.setBottomBorder()
-        cpfField.setBottomBorder()
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
+
+    override func viewDidLayoutSubviews() {
+        self.nameField.setBottomBorder()
+        self.emailField.setBottomBorder()
+        self.cpfField.setBottomBorder()
+        self.passwordField.setBottomBorder()
+        self.confirmPasswordField.setBottomBorder()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        RestHandler.shared.delegate = nil // ele faz magicamente :)
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
-    
+    */
+
 }

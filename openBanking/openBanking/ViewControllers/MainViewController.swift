@@ -119,7 +119,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                                 messages.append(message)
                                 UserDefaults.standard.setValue( messages , forKey: "pendingMesssages")
                                 UserDefaults.standard.synchronize()
-                                if let chatVC = self.tabBarController?.viewControllers![1] as? ChatViewController {
+                                if let chatVC = self.tabBarController?.viewControllers![2] as? ChatViewController {
                                     chatVC.chatBarTab.badgeValue = String(messages.count)
                                 }
                             }
