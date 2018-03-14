@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "83F4EA5CBC770BF4F1C5985B60387434"
+               BlueprintIdentifier = "74E84508D0227D8DA9F3674573B94B78"
                BuildableName = "Pods_openBanking.framework"
                BlueprintName = "Pods-openBanking"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "83F4EA5CBC770BF4F1C5985B60387434"
+            BlueprintIdentifier = "74E84508D0227D8DA9F3674573B94B78"
             BuildableName = "Pods_openBanking.framework"
             BlueprintName = "Pods-openBanking"
             ReferencedContainer = "container:Pods.xcodeproj">

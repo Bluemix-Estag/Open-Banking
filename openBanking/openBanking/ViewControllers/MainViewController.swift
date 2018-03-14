@@ -64,6 +64,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if checkUser() {
             restoreUser()
+             callWatsonConversation()
         }
         
     }
@@ -75,7 +76,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if checkUser() {
             restoreUser()
-            callWatsonConversation()
+           
         }
     }
     
@@ -161,6 +162,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             nf.numberStyle = .decimal
             nf.locale = Locale(identifier: "pt_BR")
             cell.bankImage.image = #imageLiteral(resourceName: "safebox")
+            cell.left_icon.image = #imageLiteral(resourceName: "dollar")
+            cell.middle_icon.image = #imageLiteral(resourceName: "paypal")
+            cell.right_icon.image = #imageLiteral(resourceName: "invest_icon")
             cell.bankName.text = (LOGGED_USER.accounts[indexPath.row]["name"] as! String)
             let balanceNumber = LOGGED_USER.accounts[indexPath.row]["balance"]
             cell.bankBalance.text = "R$ "+nf.string(from: balanceNumber as! NSNumber)!

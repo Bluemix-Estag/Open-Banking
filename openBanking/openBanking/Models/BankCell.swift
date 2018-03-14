@@ -18,5 +18,9 @@ class BankCell: UITableViewCell {
     
     @IBOutlet weak var bankBalance: UILabel!
     
+    @IBOutlet weak var right_icon: UIImageView!
+    @IBOutlet weak var middle_icon: UIImageView!
+    @IBOutlet weak var left_icon: UIImageView!
+    
     
 }

@@ -14,6 +14,7 @@
 		8D2B2F011F8489FA000B1E59 /* WatsonChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2B2F001F8489FA000B1E59 /* WatsonChatCell.swift */; };
 		8D7CA3DB1F83CDB700C5F3B7 /* ChatHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CA3DA1F83CDB700C5F3B7 /* ChatHandler.swift */; };
 		8D7CA3DD1F83E0D800C5F3B7 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7CA3DC1F83E0D800C5F3B7 /* ChatViewController.swift */; };
+		8D8DF35C20599C27004ECA5E /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8DF35B20599C27004ECA5E /* ChartViewController.swift */; };
 		8D94CEEF1F82FAC0009A53DE /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94CEEE1F82FAC0009A53DE /* CreateAccountViewController.swift */; };
 		8D94CEF11F82FC70009A53DE /* AccountDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D94CEF01F82FC70009A53DE /* AccountDetailsViewController.swift */; };
 		8D9701251F8141F60011EADF /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9701241F8141F60011EADF /* MainViewController.swift */; };
@@ -44,6 +45,7 @@
 		8D2B2F001F8489FA000B1E59 /* WatsonChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatsonChatCell.swift; sourceTree = "<group>"; };
 		8D7CA3DA1F83CDB700C5F3B7 /* ChatHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatHandler.swift; sourceTree = "<group>"; };
 		8D7CA3DC1F83E0D800C5F3B7 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		8D8DF35B20599C27004ECA5E /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		8D94CEEE1F82FAC0009A53DE /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
 		8D94CEF01F82FC70009A53DE /* AccountDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailsViewController.swift; sourceTree = "<group>"; };
 		8D9701241F8141F60011EADF /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				8D7CA3DC1F83E0D800C5F3B7 /* ChatViewController.swift */,
 				8D2B2EFE1F8485FB000B1E59 /* ChatTableView.swift */,
 				8D2610FA1FA8E98B00A72C1B /* RegisterViewController.swift */,
+				8D8DF35B20599C27004ECA5E /* ChartViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -275,11 +278,19 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-openBanking/Pods-openBanking-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/ChartsRealm/ChartsRealm.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChartsRealm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -296,6 +307,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DDE8F871F87F69700DC2F6E /* GradientView.swift in Sources */,
+				8D8DF35C20599C27004ECA5E /* ChartViewController.swift in Sources */,
 				8D94CEEF1F82FAC0009A53DE /* CreateAccountViewController.swift in Sources */,
 				8D9BFB0A1F8925590002D60A /* BlankBankCell.swift in Sources */,
 				8D2B2EFF1F8485FB000B1E59 /* ChatTableView.swift in Sources */,
@@ -454,12 +466,14 @@
 			baseConfigurationReference = CAFF6BC23B0D4DF9CF0E2742 /* Pods-openBanking.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EKN273TRPE;
 				INFOPLIST_FILE = openBanking/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codebakery.openBanking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -470,12 +484,14 @@
 			baseConfigurationReference = D09E29439A9271361C9907AC /* Pods-openBanking.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EKN273TRPE;
 				INFOPLIST_FILE = openBanking/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.codebakery.openBanking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -8,4 +8,6 @@ target 'openBanking' do
   # Pods for openBanking
   pod 'SwiftyJSON'
   pod 'SDWebImage'
+  pod 'Charts'
+  pod 'ChartsRealm'
 end
